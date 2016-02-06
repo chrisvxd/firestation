@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "compile": "browserify src/main.js > dist/bundle.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/chrisvxd/qf-dashboard#readme",
   "dependencies": {
-    "browserify": "^13.0.0"
+    "browserify": "^13.0.0",
+    "elemental": "^0.5.11"
   }
 }
