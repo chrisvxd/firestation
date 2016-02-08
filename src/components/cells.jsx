@@ -72,12 +72,14 @@ export var TimeSinceCell = React.createClass({
         }
     },
     startMomentTicker: function () {
-        setTimeout(function() {
+        this.ticker = setInterval(function() {
             this.setState({
                 moment: moment(this.props.value).fromNow()
             });
-            this.startMomentTicker();
         }.bind(this), 1000);
+    },
+    componentWillUnmount: function () {
+        clearInterval(this.ticker);
     },
     render: function () {
         return (
