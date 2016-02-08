@@ -6,7 +6,7 @@ var Button = elemental.Button;
 
 import configuration from '../../firestation.config.js';
 
-import {ImageCell, TextCell, SelectCell, CurrencyCell, DateCell} from './cells.jsx';
+import './cells.jsx';
 
 export default React.createClass({
     getInitialState: function () {
