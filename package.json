@@ -4,7 +4,7 @@
   "description": "A simple, configurable admin interface for firebase",
   "main": "index.js",
   "scripts": {
-    "start": "cp src/index.html dist && webpack-dev-server --progress --colors --content-base dist",
+    "start": "rsync -a src/index.html dist/ && webpack-dev-server --progress --colors --content-base dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
