@@ -18,9 +18,9 @@ export default React.createClass({
         this.deltaVal = {};
     },
     save: function () {
-        console.log('Saving', this.props.key);
+        console.log('Saving', this.props.itemKey);
 
-        var key = this.props.item.key;
+        var key = this.props.itemKey;
 
         var ref = configuration.refs[this.props.refIndex].ref.ref().child(key);
 
@@ -43,7 +43,7 @@ export default React.createClass({
     },
     getNestedValue: function (path) {
         var pathKeys = path.split('.');
-        var currentPathVal = this.props.item.val;
+        var currentPathVal = this.props.item;
         for (var j = 0; j < pathKeys.length; j++) {
             var key = pathKeys[j];
             currentPathVal = currentPathVal[key];

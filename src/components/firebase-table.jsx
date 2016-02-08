@@ -10,22 +10,21 @@ import Row from './row.jsx';
 export default React.createClass({
     getInitialState: function () {
         return {
-            items: []
+            items: {}
         };
     },
     componentWillMount: function() {
-        var items = [];
+        var items = {};
 
-        // Add child_changed support
-        configuration.refs[this.props.refIndex].ref.on('child_added', function (snapshot) {
-            items.push({
-                key: snapshot.key(),
-                val: snapshot.val()
-            });
+        var processSnapshot = function (snapshot) {
+            items[snapshot.key()] = snapshot.val();
             this.setState({
                 items: items
             });
-        }.bind(this));
+        }
+
+        configuration.refs[this.props.refIndex].ref.on('child_added', processSnapshot.bind(this));
+        configuration.refs[this.props.refIndex].ref.on('child_changed', processSnapshot.bind(this));
     },
     componentWillUnmount: function () {
         configuration.refs[this.props.refIndex].ref.off();
@@ -43,8 +42,9 @@ export default React.createClass({
         // Dynamically create rows based on ref configuration
         var rows = [];
 
-        for (var i=0; i < this.state.items.length; i++) {
-            rows.push(<Row key={i} item={this.state.items[i]} refIndex={this.props.refIndex} />);
+        for (var key in this.state.items) {
+            var item = this.state.items[key];
+            rows.push(<Row key={key} item={item} itemKey={key} refIndex={this.props.refIndex} />);
         }
 
         return (

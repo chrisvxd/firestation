@@ -24,9 +24,7 @@ export var ImageCell = React.createClass({
 
 export var SelectCell = React.createClass({
     getInitialState: function () {
-        return {
-            value: this.props.value
-        }
+        return {}
     },
     handleChange: function (event) {
         this.setState({
@@ -46,7 +44,7 @@ export var SelectCell = React.createClass({
         };
 
         return (
-            <select value={this.state.value} onChange={this.handleChange}>
+            <select value={this.state.value || this.props.value} onChange={this.handleChange}>
                 {options}
             </select>
         );
