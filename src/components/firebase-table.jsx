@@ -17,7 +17,7 @@ export default React.createClass({
         var items = [];
 
         // Add child_changed support
-        configuration.ref.child(this.props.child).on('child_added', function (snapshot) {
+        configuration.refs[this.props.refIndex].ref.on('child_added', function (snapshot) {
             items.push({
                 key: snapshot.key(),
                 val: snapshot.val()
@@ -27,21 +27,24 @@ export default React.createClass({
             });
         }.bind(this));
     },
+    componentWillUnmount: function () {
+        configuration.refs[this.props.refIndex].ref.off();
+    },
     render: function () {
-        var childConfiguration = configuration.children[this.props.child];
+        var refConfiguration = configuration.refs[this.props.refIndex].children;
 
         // Create table headers
         var headers = [];
-        for (var i = 0; i < childConfiguration.length; i++) {
-            var title = childConfiguration[i].title || childConfiguration[i].key;
+        for (var i = 0; i < refConfiguration.length; i++) {
+            var title = refConfiguration[i].title || refConfiguration[i].key;
             headers.push(<th key={i}>{title}</th>);
         };
 
-        // Dynamically create rows based on child configuration
+        // Dynamically create rows based on ref configuration
         var rows = [];
 
         for (var i=0; i < this.state.items.length; i++) {
-            rows.push(<Row key={i} item={this.state.items[i]} child={this.props.child} />);
+            rows.push(<Row key={i} item={this.state.items[i]} refIndex={this.props.refIndex} />);
         }
 
         return (

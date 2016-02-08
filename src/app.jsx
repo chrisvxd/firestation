@@ -10,38 +10,32 @@ import FirebaseTable from 'components/firebase-table.jsx';
 export default React.createClass({
     getInitialState: function () {
         return {
-            currentTable: configuration.defaultChild
+            currentRefIndex: 0
         };
-    },
-    componentWillMount: function () {
-        this.ref = configuration.ref;
-    },
-    componentWillUnmount: function () {
-        this.ref.off();
     },
     childChanged: function (event) {
         this.setState({
-            currentTable: event.target.value
+            currentRefIndex: event.target.value
         });
     },
     render: function() {
-        var childrenOptions = [];
+        var refOptions = [];
 
-        for (var key in configuration.children) {
-            childrenOptions.push(
-                <option key={key} value={key}>{key}</option>
+        for (var i = 0; i < configuration.refs.length; i++) {
+            refOptions.push(
+                <option key={i} value={i}>{configuration.refs[i].title}</option>
             );
         };
 
         return (
             <div>
-                <h1>{this.state.currentTable}</h1>
+                <h1>{configuration.refs[this.state.currentRefIndex].title}</h1>
 
-                <select value={this.state.currentTable} onChange={this.childChanged}>
-                  {childrenOptions}
+                <select value={this.state.currentRefIndex} onChange={this.childChanged}>
+                  {refOptions}
                 </select>
 
-                <FirebaseTable key={this.state.currentTable} child={this.state.currentTable}/>
+                <FirebaseTable key={this.state.currentRefIndex} refIndex={this.state.currentRefIndex}/>
             </div>
         )
     }

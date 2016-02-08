@@ -21,7 +21,8 @@ export default React.createClass({
         console.log('Saving', this.props.key);
 
         var key = this.props.item.key;
-        var ref = configuration.ref.child(this.props.child).child(key);
+
+        var ref = configuration.refs[this.props.refIndex].ref.ref().child(key);
 
         // Only update modified keys
         ref.update(this.deltaVal);
@@ -46,15 +47,15 @@ export default React.createClass({
         for (var j = 0; j < pathKeys.length; j++) {
             var key = pathKeys[j];
             currentPathVal = currentPathVal[key];
-        };
+        };  
         return currentPathVal;
     },
     render: function () {
-        var childConfiguration = configuration.children[this.props.child];
+        var refConfiguration = configuration.refs[this.props.refIndex].children;
         var columns = [];
 
-        for (var i = 0; i < childConfiguration.length; i++) {
-            var config = childConfiguration[i];
+        for (var i = 0; i < refConfiguration.length; i++) {
+            var config = refConfiguration[i];
             var KeyCell = config.cell;
 
             // get nested keys

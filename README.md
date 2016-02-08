@@ -24,58 +24,70 @@ You need to add a `firestation.config.js` file in the root of the project. This 
         auth: myAuthMethod,
         ref: myFirebaseRef,
         defaultChild: 'pets',
-        children: {
-            pets: [
-                {   
-                    key: 'picture',
-                    title: 'Profile Pic'
-                    cell: ImageCell,
-                    cellProps: {
-                        width: '120',
-                        height: '120'
+        refs: {
+            {
+                ref: myFirebaseRef.child('pets'),
+                title: 'My Favorite Pets',
+                children: [
+                    {
+                        key: 'picture',
+                        title: 'Profile Pic'
+                        cell: ImageCell,
+                        cellProps: {
+                            width: '120',
+                            height: '120'
+                        }
+                    },
+                    {
+                        key: 'name',
+                        cell: TextCell
+                    },
+                    {
+                        key: 'size.height',
+                        title: 'Height',
+                        cell: TextCell
+                    },
+                    {
+                        key: 'size.weight',
+                        title: 'Weight',
+                        cell: TextCell
+                    },
+                    {
+                        key: 'species',
+                        cell: SelectCell,
+                        cellProps: {
+                            options: [
+                                {
+                                    value: 'cat',
+                                    title: 'Cat'
+                                },
+                                {
+                                    value: 'dog',
+                                    title: 'Dog'
+                                }
+                            ]
+                        }
                     }
-                },
-                { 
-                    key: 'name',
-                    cell: TextCell
-                },
-                {
-                    key: 'size.height',
-                    title: 'Height',
-                    cell: TextCell
-                },
-                {
-                    key: 'size.weight',
-                    title: 'Weight',
-                    cell: TextCell
-                },
-                {
-                    key: 'species',
-                    cell: SelectCell,
-                    cellProps: {
-                        options: [
-                            {
-                                value: 'cat',
-                                title: 'Cat'
-                            },
-                            {
-                                value: 'dog',
-                                title: 'Dog'
-                            }
-                        ]
+                ]
+            },
+            {
+                ref: myFirebaseRef.child('owners').orderByChild('lazy').equalTo(true)
+                title: 'Lazy Owners',
+                children: [
+                    {
+                        key: 'surname',
+                        cell: TextCell
+                    },
+                    {
+                        key: 'lazy',
+                        cell: TextCell
                     }
-                }
-            ],
-            owners: [
-                {   
-                    key: 'title',
-                    cell: TextCell
-                }
-            ]
+                ]
+            }
         }
     }
 
-That's it. The `children` array contains configuration for each child you want to render in the dashboard.
+That's it. The `ref` array contains configuration for each firebase ref you want to render in the dashboard.
 
 We provide default cells for common data formats. These are:
 
