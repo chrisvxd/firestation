@@ -51,3 +51,21 @@ export var SelectCell = React.createClass({
         );
     }
 });
+
+export var DateCell = React.createClass({
+    render: function () {
+        var date = new Date(this.props.value).toISOString();
+
+        return (
+            <div>{date}</div>
+        );
+    }
+});
+
+export var CurrencyCell = React.createClass({
+    render: function () {
+        return (
+            <div>{this.props.extras.symbol}{this.props.value}</div>
+        );
+    }
+});
