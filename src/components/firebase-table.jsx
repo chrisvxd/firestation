@@ -31,8 +31,17 @@ export default React.createClass({
             }.bind(this));
         }
 
+        var removeSnapshot = function (snapshot) {
+            console.log('remove!');
+            delete items[snapshot.key()];
+            this.setState({
+                items: items
+            });
+        };
+
         configuration.refs[this.props.refIndex].ref.on('child_added', processSnapshot.bind(this));
         configuration.refs[this.props.refIndex].ref.on('child_changed', processSnapshot.bind(this));
+        configuration.refs[this.props.refIndex].ref.on('child_removed', removeSnapshot.bind(this));
     },
     componentWillUnmount: function () {
         configuration.refs[this.props.refIndex].ref.off();
