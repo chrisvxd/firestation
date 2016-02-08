@@ -5,6 +5,7 @@ var elemental = require('elemental');
 var Button = elemental.Button;
 
 import configuration from '../../firestation.config.js';
+import getNestedValue from '../utils.js';
 
 import './cells.jsx';
 
@@ -35,27 +36,10 @@ export default React.createClass({
         this.save();
     },
     valueChanged: function (key, value) {
-        console.log('value changed!')
         this.deltaVal[key] = value;
         this.setState({
             changed: true
         });
-    },
-    getNestedValue: function (path) {
-        var pathKeys = path.split('.');
-        var currentPathVal = this.props.item;
-
-        for (var j = 0; j < pathKeys.length; j++) {
-            var key = pathKeys[j];
-
-            if (currentPathVal[key] != undefined) {
-                currentPathVal = currentPathVal[key];
-            } else {
-                currentPathVal = '';
-            };
-        };
-
-        return currentPathVal;
     },
     render: function () {
         var refConfiguration = configuration.refs[this.props.refIndex].children;
@@ -66,7 +50,7 @@ export default React.createClass({
             var KeyCell = config.cell;
 
             // get nested keys
-            var value = this.getNestedValue(config.key);
+            var value = getNestedValue(this.props.item, config.key);
 
             var col;
 

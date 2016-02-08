@@ -3,6 +3,36 @@
   <head>
     <meta charset="utf-8" />
     <title>Firestation Dashboard</title>
+
+    <style type="text/css">
+        .SortableHeader {
+            position: relative;
+            cursor: pointer;
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none;   /* Chrome/Safari/Opera */
+            -khtml-user-select: none;    /* Konqueror */
+            -moz-user-select: none;      /* Firefox */
+            -ms-user-select: none;       /* IE/Edge */
+            user-select: none;           /* non-prefixed version, currently */
+        }
+        .SortableHeader .Arrow {
+            position: absolute;
+            top:40%;
+            margin-left: 5px;
+            display: inline;
+            width: 0; 
+            height: 0; 
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+        }
+        .SortableHeader .Arrow.isDesc {
+            border-bottom: 5px solid #999;
+        }
+        .SortableHeader .Arrow.isAsc {            
+            border-top: 5px solid #999;
+        }
+
+    </style>
   </head>
 
   <body>

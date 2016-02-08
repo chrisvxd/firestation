@@ -28,6 +28,8 @@ You need to add a `firestation.config.js` file in the root of the project. This 
             {
                 ref: myFirebaseRef.child('pets'),
                 title: 'My Favorite Pets',
+                orderBy: 'size.height',
+                orderByDirection: 'desc',
                 children: [
                     {
                         key: 'picture',
