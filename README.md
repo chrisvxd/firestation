@@ -81,6 +81,8 @@ Just use
 
     npm start
 
+Now go to http://127.0.0.1:8080.
+
 ## Building for distribution
 
 Build that shiz:
