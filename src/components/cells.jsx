@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+var moment = require('moment');
 
 export var TextCell = React.createClass({
     render: function () {
@@ -53,11 +54,23 @@ export var SelectCell = React.createClass({
 });
 
 export var DateCell = React.createClass({
+    componentWillMount: function () {
+        this.moment = moment(this.props.value).format("DD/MM/YY, h:mm:ss a");
+    },
     render: function () {
-        var date = new Date(this.props.value).toISOString();
-
         return (
-            <div>{date}</div>
+            <div>{this.moment}</div>
+        );
+    }
+});
+
+export var TimeSinceCell = React.createClass({
+    componentWillMount: function () {
+        this.moment = moment(this.props.value).fromNow()
+    },
+    render: function () {
+        return (
+            <div>{this.moment}</div>
         );
     }
 });
