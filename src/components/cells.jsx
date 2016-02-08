@@ -66,11 +66,24 @@ export var DateCell = React.createClass({
 
 export var TimeSinceCell = React.createClass({
     componentWillMount: function () {
-        this.moment = moment(this.props.value).fromNow()
+        this.startMomentTicker();
+    },
+    getInitialState: function () {
+        return {
+            moment: moment(this.props.value).fromNow()
+        }
+    },
+    startMomentTicker: function () {
+        setTimeout(function() {
+            this.setState({
+                moment: moment(this.props.value).fromNow()
+            });
+            this.startMomentTicker();
+        }.bind(this), 1000);
     },
     render: function () {
         return (
-            <div>{this.moment}</div>
+            <div>{this.state.moment}</div>
         );
     }
 });
