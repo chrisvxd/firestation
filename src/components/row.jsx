@@ -44,10 +44,17 @@ export default React.createClass({
     getNestedValue: function (path) {
         var pathKeys = path.split('.');
         var currentPathVal = this.props.item;
+
         for (var j = 0; j < pathKeys.length; j++) {
             var key = pathKeys[j];
-            currentPathVal = currentPathVal[key];
-        };  
+
+            if (currentPathVal[key] != undefined) {
+                currentPathVal = currentPathVal[key];
+            } else {
+                currentPathVal = '';
+            };
+        };
+
         return currentPathVal;
     },
     render: function () {
