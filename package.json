@@ -1,10 +1,10 @@
 {
-  "name": "qf-dashboard",
+  "name": "firestation",
   "version": "0.0.1",
-  "description": "",
+  "description": "A simple, configurable admin interface for firebase",
   "main": "index.js",
   "scripts": {
-    "compile": "webpack src/entry.js dist/bundle.js --config webpack.config.js",
+    "start": "webpack-dev-server --progress --colors --content-base dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,6 +25,10 @@
     "babel-loader": "^6.2.2",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
+    "css-loader": "^0.23.1",
+    "less": "^2.6.0",
+    "less-loader": "^2.2.2",
+    "style-loader": "^0.13.0",
     "webpack": "^1.12.13"
   }
 }
