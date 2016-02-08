@@ -71,8 +71,11 @@ You need to add a `firestation.config.js` file in the root of the project. This 
                 ]
             },
             {
-                ref: myFirebaseRef.child('owners').orderByChild('lazy').equalTo(true)
+                ref: myFirebaseRef.child('owners').orderByChild('lazy').equalTo(true) // Full ref chaining support
                 title: 'Lazy Owners',
+                resolve: function (val, callback) {  // Custom firebase resolve method
+                    val.calculatedLaziness = Math.random();
+                },
                 children: [
                     {
                         key: 'surname',
@@ -80,6 +83,10 @@ You need to add a `firestation.config.js` file in the root of the project. This 
                     },
                     {
                         key: 'lazy',
+                        cell: TextCell
+                    }
+                    {
+                        key: 'calculatedLaziness',
                         cell: TextCell
                     }
                 ]

@@ -7,6 +7,10 @@ var Table = elemental.Table;
 import configuration from '../../firestation.config.js';
 import Row from './row.jsx';
 
+var defaultResolve = function (val, callback) {
+    callback(val);
+};
+
 export default React.createClass({
     getInitialState: function () {
         return {
@@ -17,10 +21,14 @@ export default React.createClass({
         var items = {};
 
         var processSnapshot = function (snapshot) {
-            items[snapshot.key()] = snapshot.val();
-            this.setState({
-                items: items
-            });
+            var resolve = configuration.refs[this.props.refIndex].resolve || defaultResolve;
+
+            resolve(snapshot.val(), function (val) {
+                items[snapshot.key()] = val;
+                this.setState({
+                    items: items
+                });
+            }.bind(this));
         }
 
         configuration.refs[this.props.refIndex].ref.on('child_added', processSnapshot.bind(this));
