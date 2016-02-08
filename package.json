@@ -18,7 +18,11 @@
   },
   "homepage": "https://github.com/chrisvxd/qf-dashboard#readme",
   "dependencies": {
-    "elemental": "^0.5.11"
+    "elemental": "^0.5.11",
+    "firebase": "^2.4.0",
+    "react": "^0.14.7",
+    "react-addons-css-transition-group": "^0.14.7",
+    "react-dom": "^0.14.7"
   },
   "devDependencies": {
     "babel-core": "^6.4.5",
