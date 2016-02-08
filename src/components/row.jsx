@@ -40,6 +40,15 @@ export default React.createClass({
             changed: true
         });
     },
+    getNestedValue: function (path) {
+        var pathKeys = path.split('.');
+        var currentPathVal = this.props.item.val;
+        for (var j = 0; j < pathKeys.length; j++) {
+            var key = pathKeys[j];
+            currentPathVal = currentPathVal[key];
+        };
+        return currentPathVal;
+    },
     render: function () {
         var childConfiguration = configuration.children[this.props.child];
         var columns = [];
@@ -47,7 +56,9 @@ export default React.createClass({
         for (var i = 0; i < childConfiguration.length; i++) {
             var config = childConfiguration[i];
             var KeyCell = config.cell;
-            var value = this.props.item.val[config.key];
+
+            // get nested keys
+            var value = this.getNestedValue(config.key);
 
             var col;
 

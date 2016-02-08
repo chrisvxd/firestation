@@ -40,6 +40,16 @@ You need to add a `firestation.config.js` file in the root of the project. This 
                     cell: TextCell
                 },
                 {
+                    key: 'size.height',
+                    title: 'Height',
+                    cell: TextCell
+                },
+                {
+                    key: 'size.weight',
+                    title: 'Weight',
+                    cell: TextCell
+                },
+                {
                     key: 'species',
                     cell: SelectCell,
                     cellProps: {
