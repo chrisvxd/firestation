@@ -25,7 +25,7 @@ You need to add a `firestation.config.js` file in the root of the project. This 
         auth: myAuthMethod,
         ref: myFirebaseRef,
         defaultChild: 'pets',
-        refs: {
+        refs: [
             {
                 ref: myFirebaseRef.child('pets'),
                 title: 'My Favorite Pets',
@@ -34,7 +34,7 @@ You need to add a `firestation.config.js` file in the root of the project. This 
                 children: [
                     {
                         key: 'picture',
-                        title: 'Profile Pic'
+                        title: 'Profile Pic',
                         cell: ImageCell,
                         cellProps: {
                             width: '120',
@@ -89,14 +89,14 @@ You need to add a `firestation.config.js` file in the root of the project. This 
                     {
                         key: 'lazy',
                         cell: TextCell
-                    }
+                    },
                     {
                         key: 'calculatedLaziness',
                         cell: TextCell
                     }
                 ]
             }
-        }
+        ]
     }
 
 That's it. The `ref` array contains configuration for each firebase ref you want to render in the dashboard.
