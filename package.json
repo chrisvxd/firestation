@@ -24,7 +24,8 @@
     "moment": "^2.11.2",
     "react": "^0.14.7",
     "react-addons-css-transition-group": "^0.14.7",
-    "react-dom": "^0.14.7"
+    "react-dom": "^0.14.7",
+    "string_score": "^0.1.22"
   },
   "devDependencies": {
     "babel-core": "^6.4.5",
