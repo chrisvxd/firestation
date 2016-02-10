@@ -79,6 +79,7 @@ You need to add a `firestation.config.js` file in the root of the project. This 
                 title: 'Lazy Owners',
                 resolve: function (val, callback) {  // Custom firebase resolve method
                     val.calculatedLaziness = Math.random();
+                    callback(val);
                 },
                 children: [
                     {
