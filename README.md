@@ -38,7 +38,8 @@ You need to add a `firestation.config.js` file in the root of the project. This 
                         cellProps: {
                             width: '120',
                             height: '120'
-                        }
+                        },
+                        canFilter: false
                     },
                     {
                         key: 'name',
