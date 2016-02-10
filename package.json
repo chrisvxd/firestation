@@ -1,6 +1,6 @@
 {
   "name": "firestation",
-  "version": "0.1",
+  "version": "0.1.0",
   "description": "A simple, configurable admin interface for firebase",
   "main": "index.js",
   "scripts": {
