@@ -4,6 +4,7 @@ A simple, configurable admin interface for Firebase, built on React.
 ## Global Dependencies
 
 - npm
+- webpack
 
 ## Installation
 
