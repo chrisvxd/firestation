@@ -103,8 +103,11 @@ That's it. The `ref` array contains configuration for each firebase ref you want
 We provide default cells for common data formats. These are:
 
 - `TextCell`
-- `ImageCell`
+- `ImageCell` - set `width` and `height` in cellProps
 - `SelectCell`
+- `TimeSinceCell`
+- `DateCell`
+- `CurrencyCell` - set `symbol` in cellProps
 
 We're adding to this, but you can write custom react cells if you need anything fancy.
 
