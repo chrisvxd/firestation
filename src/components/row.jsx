@@ -5,7 +5,7 @@ var elemental = require('elemental');
 var Button = elemental.Button;
 
 import configuration from '../../firestation.config.js';
-import getNestedValue from '../utils.js';
+import {getNestedValue} from '../utils.js';
 
 import './cells.jsx';
 

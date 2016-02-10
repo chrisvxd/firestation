@@ -8,7 +8,7 @@ var Table = elemental.Table;
 
 import configuration from '../../firestation.config.js';
 import Row from './row.jsx';
-import getNestedValue from '../utils.js';
+import {getNestedValue, setNestedValue} from '../utils.js';
 
 var defaultResolve = function (val, callback) {
     callback(val);

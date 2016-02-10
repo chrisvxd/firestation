@@ -1,4 +1,4 @@
-export default function getNestedValue (rootVal, path) {
+export var getNestedValue = function (rootVal, path) {
     var pathKeys = path.split('.');
     var currentPathVal = rootVal;
 
@@ -14,3 +14,25 @@ export default function getNestedValue (rootVal, path) {
 
     return currentPathVal;
 };
+
+// Takes an object and a dot-notated path, created the nested tree for that path
+// and setting a value
+export var setNestedValue = function (object, path, val) {
+    var pathKeys = path.split('.');
+    var currentPathVal = object;
+
+    for (var j = 0; j < pathKeys.length; j++) {
+        var key = pathKeys[j];
+
+        if (j < pathKeys.length - 1) {
+            currentPathVal[key] = {};
+            currentPathVal = currentPathVal[key];
+        } else {
+            currentPathVal[key] = val;
+        }
+    };
+
+    currentPathVal[key] = val;
+
+    return object;
+}
