@@ -5,7 +5,7 @@ var elemental = require('elemental');
 var Button = elemental.Button;
 
 import configuration from '../../firestation.config.js';
-import {getNestedValue} from '../utils.js';
+import {getNestedValue, setNestedValue} from '../utils.js';
 
 import './cells.jsx';
 
@@ -36,7 +36,7 @@ export default React.createClass({
         this.save();
     },
     valueChanged: function (key, value) {
-        this.deltaVal[key] = value;
+        setNestedValue(this.deltaVal, key, value);
         this.setState({
             changed: true
         });
