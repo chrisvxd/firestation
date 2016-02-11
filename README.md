@@ -84,7 +84,8 @@ You need to add a `firestation.config.js` file in the root of the project. This 
                 children: [
                     {
                         key: 'surname',
-                        cell: TextCell
+                        cell: TextCell,
+                        canWrite: true
                     },
                     {
                         key: 'lazy',
@@ -101,6 +102,7 @@ You need to add a `firestation.config.js` file in the root of the project. This 
 
 That's it. The `ref` array contains configuration for each firebase ref you want to render in the dashboard.
 
+#### Cell Types
 We provide default cells for common data formats. These are:
 
 - `TextCell`
@@ -110,7 +112,21 @@ We provide default cells for common data formats. These are:
 - `DateCell`
 - `CurrencyCell` - set `symbol` in cellProps
 
-We're adding to this, but you can write custom react cells if you need anything fancy.
+We're adding to this, but you can write custom react cells if you need anything fancy. Each cell type may have custom `cellProps`. For example, `ImageCell` has two `width` and `height`.
+
+#### Writable Cells
+Cells can be read-only or read-and-write. You can customise this with the `canWrite` property, which will default to `false`:
+
+    {
+        key: 'surname',
+        cell: TextCell,
+        canWrite: true
+    }
+
+There is currently only partial support for writing:
+- TextCell
+- SelectCell
+
 
 ## Running locally
 

@@ -52,23 +52,11 @@ export default React.createClass({
             // get nested keys
             var value = getNestedValue(this.props.item, config.key);
 
-            var col;
-
-            if (config.cellProps !== undefined) {
-                col = (
-                    <td key={i} >
-                        <KeyCell value={value} childKey={config.key} valueChanged={this.valueChanged} extras={config.cellProps} />
-                    </td>
-                )
-            } else {
-                col = (
-                    <td key={i} >
-                        <KeyCell value={value} childKey={config.key} valueChanged={this.valueChanged} />
-                    </td>
-                )
-            };
-
-            columns.push(col);
+            columns.push(
+                <td key={i} >
+                    <KeyCell value={value} childKey={config.key} valueChanged={this.valueChanged} canWrite={config.canWrite || false} extras={config.cellProps} />
+                </td>
+            );
         };
 
         return (

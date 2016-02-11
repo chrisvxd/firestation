@@ -1,12 +1,58 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 var moment = require('moment');
+var elemental = require('elemental');
+var Form = elemental.Form;
+var FormInput = elemental.FormInput;
+var Glyph = elemental.Glyph;
 
 export var TextCell = React.createClass({
+    getInitialState: function () {
+        return {
+            value: this.props.value,
+            editing: false
+        }
+    },
+    handleChange: function (event) {
+        this.setState({
+            value: event.target.value
+        });
+        this.props.valueChanged(this.props.childKey, event.target.value);
+    },
+    handleEditToggle: function (event) {
+        event.preventDefault();
+        this.setState({
+            editing: !this.state.editing
+        });
+    },
     render: function () {
-        return (
-            <div>{this.props.value}</div>
-        );
+        var editGlyph = null;
+
+        if (this.props.canWrite) {
+            editGlyph = (<span onClick={this.handleEditToggle} className='CellEditIcon'>
+                <Glyph icon='pencil'></Glyph>
+            </span>)
+        };
+
+        if (this.props.canWrite && this.state.editing === true) {
+            // Read and write
+            return (
+                <span>
+                    <Form onSubmit={this.handleEditToggle}>
+                        <FormInput autofocus className='CellContent' type="text" value={this.state.value} onChange={this.handleChange}></FormInput>
+                        {editGlyph}
+                    </Form>
+                </span>
+            )
+        } else {
+            // Read only
+            return (
+                <span>
+                    <span className='CellContent'>{this.state.value}</span>
+                    {editGlyph}
+                </span>
+            )
+        }
     }
 });
 
@@ -44,7 +90,7 @@ export var SelectCell = React.createClass({
         };
 
         return (
-            <select value={this.state.value || this.props.value} onChange={this.handleChange}>
+            <select value={this.state.value || this.props.value} onChange={this.handleChange} disabled={!this.props.canWrite}>
                 {options}
             </select>
         );
