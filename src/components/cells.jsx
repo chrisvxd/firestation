@@ -56,6 +56,56 @@ export var TextCell = React.createClass({
     }
 });
 
+export var LongTextCell = React.createClass({
+    getInitialState: function () {
+        return {
+            value: this.props.value,
+            editing: false
+        }
+    },
+    handleChange: function (event) {
+        this.setState({
+            value: event.target.value
+        });
+        this.props.valueChanged(this.props.childKey, event.target.value);
+    },
+    handleEditToggle: function (event) {
+        event.preventDefault();
+        this.setState({
+            editing: !this.state.editing
+        });
+    },
+    render: function () {
+        var editGlyph = null;
+
+        if (this.props.canWrite) {
+            editGlyph = (<span onClick={this.handleEditToggle} className='CellEditIcon'>
+                <Glyph icon='pencil'></Glyph>
+            </span>)
+        };
+
+        if (this.props.canWrite && this.state.editing === true) {
+            // Read and write
+            return (
+                <span>
+                    <Form onSubmit={this.handleEditToggle}>
+                        <FormInput autofocus multiline className='CellContent' type="textarea" value={this.state.value} onChange={this.handleChange}></FormInput>
+                        {editGlyph}
+                    </Form>
+                </span>
+            )
+        } else {
+            // Read only
+            return (
+                <span>
+                    <FormInput multiline className='CellContent ReadOnlyTextArea' type="textarea" value={this.state.value} readonly={!this.state.editing}></FormInput>
+                    {editGlyph}
+                </span>
+            )
+        }
+    }
+});
+
 export var ImageCell = React.createClass({
     render: function () {
         return (

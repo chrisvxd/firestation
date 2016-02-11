@@ -106,6 +106,7 @@ That's it. The `ref` array contains configuration for each firebase ref you want
 We provide default cells for common data formats. These are:
 
 - `TextCell`
+- `LongTextCell` - renders a textarea for longer text
 - `ImageCell` - set `width` and `height` in cellProps
 - `SelectCell`
 - `TimeSinceCell`
@@ -123,8 +124,9 @@ Cells can be read-only or read-and-write. You can customise this with the `canWr
         canWrite: true
     }
 
-There is currently only partial support for writing:
+Currently only some cells support writing:
 - TextCell
+- LongTextCell
 - SelectCell
 
 
