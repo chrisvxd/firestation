@@ -1,6 +1,8 @@
 # firestation
 A simple, configurable, realtime admin interface for Firebase, built on React.
 
+See a live demo [here](https://s3-eu-west-1.amazonaws.com/firestation/demo/index.html) (and view the source [here](http://github.com/chrisvxd/firestation-demo)).
+
 ![Screenshot](https://s3-eu-west-1.amazonaws.com/firestation/Screen+Shot+2016-02-12+at+12.04.49.png)
 
 <a name="global-dependencies"></a>
