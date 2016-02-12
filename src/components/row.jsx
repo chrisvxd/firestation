@@ -5,7 +5,7 @@ var elemental = require('elemental');
 var Button = elemental.Button;
 
 import configuration from '../../firestation.config.js';
-import {getNestedValue, setNestedValue} from '../utils.js';
+import {getNestedValue, setNestedValue, getNestedRef} from '../utils.js';
 
 import './cells.jsx';
 
@@ -25,8 +25,11 @@ export default React.createClass({
 
         var ref = configuration.refs[this.props.refIndex].ref.ref().child(key);
 
-        // Only update modified keys
-        ref.update(this.deltaVal);
+        // Update each modified key individually, since need to account for nested keys
+        for (var key in this.deltaVal) {
+            var childRef = getNestedRef(ref, key);
+            childRef.set(this.deltaVal[key]);
+        };
 
         this.setState({
             changed: false
@@ -36,7 +39,7 @@ export default React.createClass({
         this.save();
     },
     valueChanged: function (key, value) {
-        setNestedValue(this.deltaVal, key, value);
+        this.deltaVal[key] = value;
         this.setState({
             changed: true
         });

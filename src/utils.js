@@ -36,3 +36,16 @@ export var setNestedValue = function (object, path, val) {
 
     return object;
 }
+
+// Get a nested firebase ref for a given dot-notated path
+export var getNestedRef = function (ref, path) {
+    var pathKeys = path.split('.');
+    var currentRef = ref;
+
+    for (var j = 0; j < pathKeys.length; j++) {
+        var key = pathKeys[j];
+        currentRef = currentRef.child(key);
+    };
+
+    return currentRef;
+}
