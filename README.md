@@ -1,5 +1,5 @@
 # firestation
-A simple, configurable admin interface for Firebase, built on React.
+A simple, configurable, realtime admin interface for Firebase, built on React.
 
 ![Screenshot](https://s3-eu-west-1.amazonaws.com/firestation/Screen+Shot+2016-02-12+at+12.04.49.png)
 
