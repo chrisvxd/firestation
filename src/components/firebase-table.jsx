@@ -231,8 +231,9 @@ export default React.createClass({
         // Create table headers
         var headers = [];
         for (var i = 0; i < refConfiguration.length; i++) {
-            var title = refConfiguration[i].title || refConfiguration[i].key;
-            var key = refConfiguration[i].key;
+            var config = refConfiguration[i];
+            var title = config.title || config.key;
+            var key = config.key;
 
             var headerArrowClass = '';
 
@@ -250,7 +251,7 @@ export default React.createClass({
             var filterInput = null;
             var searchGlyph = null;
 
-            if (refConfiguration[i].canFilter !== false) {
+            if (config.canFilter !== false) {
                 if (this.filters[key] !== undefined) {
                     searchGlyph = (<span className="HeaderSearchIcon" onClick={this.handleSearchClick.bind(this, key)}>
                         <Glyph icon="search" type="primary"></Glyph>
@@ -281,9 +282,8 @@ export default React.createClass({
                 headerSortArrow = <span className={headerArrowClass} />
             };
 
-
             headers.push(
-                <th key={i} className='SortableHeader'>
+                <th key={i} className='SortableHeader' width={config.width}>
                     <div>
                         {searchGlyph}
                         {filterInput}
