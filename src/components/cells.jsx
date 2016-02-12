@@ -98,7 +98,7 @@ export var LongTextCell = React.createClass({
             // Read only
             return (
                 <span>
-                    <FormInput multiline className='CellContent ReadOnlyTextArea' type="textarea" value={this.state.value} readonly={!this.state.editing}></FormInput>
+                    <FormInput multiline className='CellContent ReadOnlyTextArea' type="textarea" value={this.state.value} readOnly={!this.state.editing}></FormInput>
                     {editGlyph}
                 </span>
             )
