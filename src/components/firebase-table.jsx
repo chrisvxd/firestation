@@ -7,8 +7,12 @@ require("string_score");
 var elemental = require('elemental');
 var Table = elemental.Table;
 var Form = elemental.Form;
+var FormField = elemental.FormField;
 var FormInput = elemental.FormInput;
 var Glyph = elemental.Glyph;
+var GridRow = elemental.Row;
+var GridCol = elemental.Col;
+var Card = elemental.Card;
 
 import configuration from '../../firestation.config.js';
 import Row from './row.jsx';
@@ -25,7 +29,9 @@ export default React.createClass({
             orderBy: configuration.refs[this.props.refIndex].orderBy,
             orderByDirection: configuration.refs[this.props.refIndex].orderByDirection,
             openFilterFields: [],
-            filtersByKey: {}
+            filtersByKey: {},
+            rangeStart: configuration.refs[this.props.refIndex].rangeStart || 1,
+            rangeEnd: configuration.refs[this.props.refIndex].rangeEnd || 10
         };
     },
     componentWillMount: function() {
@@ -116,6 +122,36 @@ export default React.createClass({
     },
     componentWillUnmount: function () {
         configuration.refs[this.props.refIndex].ref.off();
+    },
+    handleRangeStartChange: function (event) {
+        var value = event.target.value;
+        if (value < 1) {
+            value = 1;
+        }
+
+        var rangeDiff = this.state.rangeEnd - this.state.rangeStart;
+
+        this.setState({
+            rangeStart: value,
+            rangeEnd: Number(value) + Number(rangeDiff)
+        });
+    },
+    handleRangeEndChange: function (event) {
+        var value = event.target.value;
+        if (value < 1) {
+            value = 1;
+        }
+
+        var rangeStart = this.state.rangeStart;
+
+        if (this.state.rangeStart > this.state.rangeEnd) {
+            rangeStart = this.state.rangeEnd
+        }
+
+        this.setState({
+            rangeStart: rangeStart,
+            rangeEnd: value
+        });
     },
     handleFilterChange: function (key, title, event) {
         const value = event.target.value.replace(title + ': ', '').replace(title + ':', '');
@@ -265,7 +301,6 @@ export default React.createClass({
             }
 
             if (this.state.openFilterFields.indexOf(key) > -1) {
-                console.log(this.state.openFilterFields, this.state.openFilterFields.indexOf(key))
                 filterInput = <Form className="HeaderSearch" onSubmit={this.handleSearchSubmit.bind(this, key)}>
                     <FormInput
                         autofocus
@@ -302,29 +337,71 @@ export default React.createClass({
         // Dynamically create rows based on ref configuration
         var rows = [];
 
-        for (var i = 0; i < this.state.items.length; i++) {
-            var key = this.state.items[i].key;
-            var val = this.state.items[i].val;
-            rows.push(<Row key={key} item={val} itemKey={key} refIndex={this.props.refIndex} />);
-        };
+        var rangeStart = this.state.rangeStart;
+        var rangeEnd = this.state.rangeEnd;
+        var rangeDiff = rangeEnd - rangeStart;
+
+        if (this.state.items.length < rangeStart) {
+            rangeStart = this.state.items.length - rangeDiff;
+            if (rangeStart < 0) {
+                rangeStart = 0;
+            }
+        }
+
+        if (this.state.items.length < rangeEnd) {
+            rangeEnd = this.state.items.length;
+        }
+
+        if (this.state.items.length > 0) {
+            for (var i = rangeStart - 1; i < rangeEnd; i++) {
+                var key = this.state.items[i].key;
+                var val = this.state.items[i].val;
+                rows.push(<Row key={key} item={val} itemKey={key} refIndex={this.props.refIndex} />);
+            };
+        }
 
         return (
-            <Table>
-                <thead>
-                    <tr>
-                        <th>
-                            <label>
-                                <input type="checkbox" />
-                            </label>
-                        </th>
-                        {headers}
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {rows}
-                </tbody>
-            </Table>
+            <div>
+                <GridRow>
+                    <GridCol sm="5/6">
+                    </GridCol>
+
+                	<GridCol sm="1/6">
+                        <Card>
+                            <Form type="inline">
+                                <FormField>
+                                    <FormInput type="number" value={this.state.rangeStart} onChange={this.handleRangeStartChange}>
+                                    </FormInput>
+                                </FormField>
+                                to
+                                <FormField>
+                                    <FormInput type="number" value={this.state.rangeEnd} onChange={this.handleRangeEndChange}>
+                                    </FormInput>
+                                </FormField>
+                                of {this.state.items.length || '...'}
+                            </Form>
+                        </Card>
+                    </GridCol>
+                </GridRow>
+
+
+                <Table>
+                    <thead>
+                        <tr>
+                            <th>
+                                <label>
+                                    <input type="checkbox" />
+                                </label>
+                            </th>
+                            {headers}
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {rows}
+                    </tbody>
+                </Table>
+            </div>
         );
     }
 });

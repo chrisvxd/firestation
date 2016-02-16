@@ -145,6 +145,8 @@ Each item in the top-level `refs` renders to a table. It defines a [firebase ref
 - `title` (string, optional) - human-readable title for this ref configuration
 - `orderBy` (string, optional) - the default `key` to order your
 - `orderByDirection` (string, optional) - the direction (`asc` or `desc`) for the ordering of your `orderBy` value
+- `rangeStart` (integer, optional) - the initial index of the first item in rendered range. Defaults to `1`
+- `rangeEnd` (integer, optional) - the initial index of the last of the rendered range. Defaults to `10`
 
 Example:
 
@@ -157,6 +159,8 @@ Example:
             value.myExtraField = 'Wohoo!';
             callback(value);
         },
+        rangeStart: 1,
+        rangeEnd: 25,
         children: [
             ...
         ]
