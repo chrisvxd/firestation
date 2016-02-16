@@ -107,11 +107,11 @@ export default React.createClass({
     },
     removeSnapshot: function (snapshot) {
         var key = snapshot.key();
-        var existingIndex = _.findIndex(items, {'key': key});
+        var existingIndex = _.findIndex(this.items, {'key': key});
 
-        delete items[existingIndex];
+        this.items.splice(existingIndex, 1);
         this.setState({
-            items: items
+            items: this.items
         });
     },
     componentWillUnmount: function () {
