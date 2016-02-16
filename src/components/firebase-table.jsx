@@ -363,10 +363,10 @@ export default React.createClass({
         return (
             <div>
                 <GridRow>
-                    <GridCol sm="5/6">
+                    <GridCol sm="2/3">
                     </GridCol>
 
-                	<GridCol sm="1/6">
+                    <GridCol sm="1/3">
                         <Card>
                             <Form type="inline">
                                 <FormField>
