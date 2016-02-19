@@ -106,6 +106,57 @@ export var LongTextCell = React.createClass({
     }
 });
 
+
+export var NumberCell = React.createClass({
+    getInitialState: function () {
+        return {
+            value: this.props.value,
+            editing: false
+        }
+    },
+    handleChange: function (event) {
+        this.setState({
+            value: event.target.value
+        });
+        this.props.valueChanged(this.props.childKey, Number(event.target.value));
+    },
+    handleEditToggle: function (event) {
+        event.preventDefault();
+        this.setState({
+            editing: !this.state.editing
+        });
+    },
+    render: function () {
+        var editGlyph = null;
+
+        if (this.props.canWrite) {
+            editGlyph = (<span onClick={this.handleEditToggle} className='CellEditIcon'>
+                <Glyph icon='pencil'></Glyph>
+            </span>)
+        };
+
+        if (this.props.canWrite && this.state.editing === true) {
+            // Read and write
+            return (
+                <span>
+                    <Form onSubmit={this.handleEditToggle}>
+                        <FormInput autofocus className='CellContent' type="number" value={this.state.value} onChange={this.handleChange}></FormInput>
+                        {editGlyph}
+                    </Form>
+                </span>
+            )
+        } else {
+            // Read only
+            return (
+                <span>
+                    <span className='CellContent'>{this.state.value}</span>
+                    {editGlyph}
+                </span>
+            )
+        }
+    }
+});
+
 export var ImageCell = React.createClass({
     render: function () {
         return (

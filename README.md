@@ -185,6 +185,7 @@ Firestation provides various cells for common use cases:
 
 - [`TextCell`](#text-cell)
 - [`LongTextCell`](#long-text-cell)
+- [`NumberCell`](#number-cell)
 - [`ImageCell`](#image-cell)
 - [`SelectCell`](#select-cell)
 - [`TimeSinceCell`](#time-since-cell)
@@ -202,6 +203,12 @@ This cell _does_ support the `canWrite` method.
 <a name="long-text-cell"></a>
 ### LongTextCell
 Renders the value as text in a mulitline textarea. Does not require any `cellProps`.
+
+This cell _does_ support the `canWrite` method.
+
+<a name="number-cell"></a>
+### Number
+Renders the value as number. Does not require any `cellProps`.
 
 This cell _does_ support the `canWrite` method.
 
