@@ -66,9 +66,13 @@ export default React.createClass({
 
             snapshot.forEach(function (snapshotChild) {
                 resolve(snapshotChild.key(), snapshotChild.val(), function (val) {
+                    var key = snapshotChild.key();
+
+                    val._key = key;
+
                     this.items.push({
                         val: val,
-                        key: snapshotChild.key()
+                        key: key
                     });
 
                     i += 1;
@@ -94,6 +98,8 @@ export default React.createClass({
             var key = snapshot.key();
 
             var existingIndex = _.findIndex(this.items, {'key': key});
+
+            val._key = key;
 
             var newItem = {
                 val: val,

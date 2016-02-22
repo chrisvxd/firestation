@@ -48,10 +48,13 @@ You need to add a `firestation.config.js` file in the root of the project. This 
                         canFilter: false
                     },
                     {
-                        key: 'name',
+                        key: '_key',
                         cell: TextCell
                     },
                     {
+                        key: 'name',
+                        cell: TextCell
+                    },                    {
                         key: 'size.height',
                         title: 'Height',
                         cell: TextCell
@@ -180,6 +183,10 @@ Each configuration takes the following properties:
 - `canFilter` (boolean, optional) - Whether this column can be filtered using column searching
 - `canWrite` (boolean, optional) - Whether the cells can be used in write-mode (currently only partial support)
 - `width` (string or integer, optional) - Width of the cell column ([passed directly to `<th>`](http://www.w3schools.com/tags/att_col_width.asp))
+
+`key` can also take some special values, indiciated by a `_` prefix:
+
+- `_key` - The key (id) for this object
 
 Firestation provides various cells for common use cases:
 
