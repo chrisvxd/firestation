@@ -18,7 +18,7 @@ import configuration from '../../firestation.config.js';
 import Row from './row.jsx';
 import {getNestedValue, setNestedValue} from '../utils.js';
 
-var defaultResolve = function (val, callback) {
+var defaultResolve = function (key, val, callback) {
     callback(val);
 };
 
@@ -65,7 +65,7 @@ export default React.createClass({
             var resolve = configuration.refs[this.props.refIndex].resolve || defaultResolve;
 
             snapshot.forEach(function (snapshotChild) {
-                resolve(snapshotChild.val(), function (val) {
+                resolve(snapshotChild.key(), snapshotChild.val(), function (val) {
                     this.items.push({
                         val: val,
                         key: snapshotChild.key()
@@ -90,7 +90,7 @@ export default React.createClass({
     processSnapshot: function (snapshot) {
         var resolve = configuration.refs[this.props.refIndex].resolve || defaultResolve;
 
-        resolve(snapshot.val(), function (val) {
+        resolve(snapshot.key(), snapshot.val(), function (val) {
             var key = snapshot.key();
 
             var existingIndex = _.findIndex(this.items, {'key': key});

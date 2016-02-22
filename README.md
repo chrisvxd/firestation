@@ -82,7 +82,7 @@ You need to add a `firestation.config.js` file in the root of the project. This 
             {
                 ref: myFirebaseRef.child('owners').orderByChild('lazy').equalTo(true) // Full ref chaining support
                 title: 'Lazy Owners',
-                resolve: function (val, callback) {  // Custom firebase resolve method
+                resolve: function (key, val, callback) {  // Custom firebase resolve method
                     val.calculatedLaziness = Math.random();
                     callback(val);
                 },
@@ -363,7 +363,7 @@ Resolve methods allow you to modify the `value` for each Firebase Snapshot _befo
 
 Calculation Example - adding a `yearBorn` value when we only know the age:
 
-    function (value, callback) {
+    function (key, value, callback) {
         var currentYear = new Date().getFullYear();
         value.yearBorn = currentYear - value.age;
         callback(value);
@@ -371,7 +371,7 @@ Calculation Example - adding a `yearBorn` value when we only know the age:
 
 Flattening (denormalizing) related objects Example - `owner` onto `pet` using the `owner` key:
 
-    function (petValue, callback) {
+    function (key, petValue, callback) {
         myFirebaseRef.child('owners').child(petValue.ownerKey).once('value', function (ownerSnapshot) {
             petValue.owner = ownerSnapshot.value();
             callback(petValue);
