@@ -198,6 +198,7 @@ Firestation provides various cells for common use cases:
 - [`TimeSinceCell`](#time-since-cell)
 - [`DateCell`](#date-cell)
 - [`CurrencyCell`](#currency-cell)
+- [`ButtonCell`](#button-cell)
 
 We're adding to this (see [Future Cells](#future-cells)), but [you can write custom react cells](#custom-cells) if you need anything fancy.
 
@@ -298,12 +299,38 @@ Example:
 
 This cell __does not__ support the `canWrite` method.
 
+<a name="button-cell"></a>
+### ButtonCell
+Renders a button. Takes the following `cellProps`:
+
+- `title` (string) - title of the button
+- `type` (string) - type of the button. Options are `primary`, `success`, `warning` and `danger`. Defaults to `primary`
+- `disabled` (string) - whether the cell is disabled. Defaults to `false`
+- `action` (function) - method to call when the button is clicked. You can modify `title`, `type` and `disabled` in the callback.
+
+Simple example:
+
+    {
+        key: '',
+        cell: ButtonCell,
+        cellProps: {
+            title: 'Click me!',
+            action: function (rowKey, rowValue, callback) {
+                console.log('Woohoo! Performed action on', rowKey);
+
+                callback({
+                  disabled: true
+                });
+            }
+        }
+    }
+
 <a name="future-cells"></a>
 ### Future Cells
 
 Cells planned but not yet implemented:
 
-- `NumberCell`
+No cells are currently planned at this time.
 
 <a name="custom-cells"></a>
 ### Custom Cells
@@ -326,6 +353,8 @@ All cells are [built on react](http://facebook.github.io/react/). They are total
 This is all basic React. The properties (`this.props`) that the cell will from firestation receive are:
 
 - `value` - the value for the key this cell will render
+- `rowKey` - the value for the entire row
+- `rowValue` - the key for entire row
 - `extras` (object) - the [`cellProps`](#cell-api) for that configuration. These could be anything you need.
 - `canWrite` (bool) - the [`canWrite`](#cell-api) for that configuration, determining if the cell should be writable
 - `childKey` (string) - the `key` that this cell is rendering (e.g. `age`)

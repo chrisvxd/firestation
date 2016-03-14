@@ -57,7 +57,14 @@ export default React.createClass({
 
             columns.push(
                 <td key={i} >
-                    <KeyCell value={value} childKey={config.key} valueChanged={this.valueChanged} canWrite={config.canWrite || false} extras={config.cellProps} />
+                    <KeyCell
+                        rowValue={this.props.item}
+                        rowKey={this.props.itemKey}
+                        value={value}
+                        childKey={config.key}
+                        valueChanged={this.valueChanged}
+                        canWrite={config.canWrite || false}
+                        extras={config.cellProps} />
                 </td>
             );
         };

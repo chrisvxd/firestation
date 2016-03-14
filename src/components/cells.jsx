@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 var moment = require('moment');
 var elemental = require('elemental');
+var Button = elemental.Button;
 var Form = elemental.Form;
 var FormInput = elemental.FormInput;
 var Glyph = elemental.Glyph;
@@ -240,5 +241,24 @@ export var CurrencyCell = React.createClass({
         return (
             <div>{this.props.extras.symbol}{this.props.value}</div>
         );
+    }
+});
+
+export var ButtonCell = React.createClass({
+    getInitialState: function () {
+        return {
+            disabled: this.props.extras.disabled || false,
+            title: this.props.extras.title,
+            type: this.props.extras.type || 'primary'
+        }
+    },
+    action: function () {
+        var $this = this;
+        this.props.extras.action(this.props.rowKey, this.props.rowValue, function (newProps) {
+            $this.setState(newProps);
+        });
+    },
+    render: function () {
+        return <Button type="primary" onClick={this.action} disabled={this.state.disabled} type={this.state.type}>{this.state.title}</Button>
     }
 });
