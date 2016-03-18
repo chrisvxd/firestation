@@ -35,6 +35,10 @@ export var TextCell = React.createClass({
             </span>)
         };
 
+        if (this.props.clean) {
+            this.state.value = this.props.value;
+        }
+
         if (this.props.canWrite && this.state.editing === true) {
             // Read and write
             return (
@@ -84,6 +88,10 @@ export var LongTextCell = React.createClass({
                 <Glyph icon='pencil'></Glyph>
             </span>)
         };
+
+        if (this.props.clean) {
+            this.state.value = this.props.value;
+        }
 
         if (this.props.canWrite && this.state.editing === true) {
             // Read and write
@@ -136,6 +144,10 @@ export var NumberCell = React.createClass({
             </span>)
         };
 
+        if (this.props.clean) {
+            this.state.value = this.props.value;
+        }
+
         if (this.props.canWrite && this.state.editing === true) {
             // Read and write
             return (
@@ -183,6 +195,10 @@ export var SelectCell = React.createClass({
     render: function () {
         var optionConfig = this.props.extras.options;
         var options = [];
+
+        if (this.props.clean) {
+            this.state.value = this.props.value;
+        }
 
         for (var i = 0; i < optionConfig.length; i++) {
             var option = optionConfig[i];

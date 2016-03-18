@@ -353,6 +353,7 @@ All cells are [built on react](http://facebook.github.io/react/). They are total
 This is all basic React. The properties (`this.props`) that the cell will from firestation receive are:
 
 - `value` - the value for the key this cell will render
+- `clean` (bool) - whether the value of this cell is in sync with firebase. Useful for handling write state.
 - `rowKey` - the value for the entire row
 - `rowValue` - the key for entire row
 - `extras` (object) - the [`cellProps`](#cell-api) for that configuration. These could be anything you need.
@@ -377,6 +378,11 @@ Here's a more advanced example, implementing a read-and-writable cell that rende
             this.props.valueChanged(this.props.childKey, event.target.value);
         },
         render: function () {
+            // We're in sync with firebase, so ensure values of props and state match.
+            if (this.props.clean) {
+                this.state.value = this.props.value;
+            }
+
             if (this.props.canWrite) {
                 // Read and write
                 return (

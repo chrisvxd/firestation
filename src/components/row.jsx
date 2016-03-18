@@ -58,6 +58,7 @@ export default React.createClass({
             columns.push(
                 <td key={i} >
                     <KeyCell
+                        clean={!this.state.changed}
                         rowValue={this.props.item}
                         rowKey={this.props.itemKey}
                         value={value}
