@@ -255,10 +255,10 @@ export var ButtonCell = React.createClass({
     action: function () {
         var $this = this;
         this.props.extras.action(this.props.rowKey, this.props.rowValue, function (newProps) {
-            $this.setState(newProps);
+            $this.setState(newProps || {});
         });
     },
     render: function () {
-        return <Button type="primary" onClick={this.action} disabled={this.state.disabled} type={this.state.type}>{this.state.title}</Button>
+        return <Button onClick={this.action} disabled={this.state.disabled} type={this.state.type}>{this.state.title}</Button>
     }
 });
