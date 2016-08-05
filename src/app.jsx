@@ -18,6 +18,7 @@ import FirebaseTable from 'components/firebase-table.jsx';
 
 export default React.createClass({
     getInitialState: function () {
+        document.title = configuration.title + ' | ' + configuration.refs[0].title;
         return {
             currentRefIndex: 0,
             currentItems: [],
@@ -26,7 +27,7 @@ export default React.createClass({
         };
     },
     refSelected: function (refIndex) {
-        console.log(refIndex);
+        document.title = configuration.title + ' | ' + configuration.refs[refIndex].title;
         this.setState({
             currentRefIndex: refIndex,
             currentItems: [],
