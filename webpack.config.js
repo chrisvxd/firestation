@@ -2,10 +2,12 @@ var path = require('path');
 var webpack = require('webpack');
 
 var env = (process.env.NODE_ENV || 'dev')
+var deploying = (process.env.DEPLOYING || 'false');
+var pathPref = (deploying === 'true'? 'dist' : '');
 
 module.exports = {
   entry: './src/entry.js',
-  output: { path: __dirname, filename: 'dist/bundle.js' },
+  output: { path: __dirname, filename: pathPref + '/bundle.js' },
   resolve: {
     alias: {
       'components': path.join(__dirname, 'src/components'),
