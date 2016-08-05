@@ -5,37 +5,115 @@ import configuration from '../firestation.config.js';
 
 import 'elemental/less/elemental.less';
 
+var elemental = require('elemental');
+
+var GridRow = elemental.Row;
+var GridCol = elemental.Col;
+var Card = elemental.Card;
+var Form = elemental.Form;
+var FormField = elemental.FormField;
+var FormInput = elemental.FormInput;
+
 import FirebaseTable from 'components/firebase-table.jsx';
 
 export default React.createClass({
     getInitialState: function () {
         return {
-            currentRefIndex: 0
+            currentRefIndex: 0,
+            currentItems: [],
+            rangeStart: configuration.refs[0].rangeStart || 1,
+            rangeEnd: configuration.refs[0].rangeEnd || 10
         };
     },
-    childChanged: function (event) {
+    refSelected: function (refIndex) {
+        console.log(refIndex);
         this.setState({
-            currentRefIndex: event.target.value
+            currentRefIndex: refIndex,
+            currentItems: [],
+            rangeStart: configuration.refs[refIndex].rangeStart || 1,
+            rangeEnd: configuration.refs[refIndex].rangeEnd || 10
+        });
+    },
+    itemsLoaded: function (items) {
+        this.setState({
+            currentItems: items,
+        });
+    },
+    handleRangeStartChange: function (event) {
+        var value = event.target.value;
+        if (value < 1) {
+            value = 1;
+        }
+
+        var rangeDiff = this.state.rangeEnd - this.state.rangeStart;
+
+        this.setState({
+            rangeStart: value,
+            rangeEnd: Number(value) + Number(rangeDiff)
+        });
+    },
+    handleRangeEndChange: function (event) {
+        var value = event.target.value;
+        if (value < 1) {
+            value = 1;
+        }
+
+        var rangeStart = this.state.rangeStart;
+
+        if (this.state.rangeStart > this.state.rangeEnd) {
+            rangeStart = this.state.rangeEnd
+        }
+
+        this.setState({
+            rangeStart: rangeStart,
+            rangeEnd: value
         });
     },
     render: function() {
         var refOptions = [];
 
         for (var i = 0; i < configuration.refs.length; i++) {
-            refOptions.push(
-                <option key={i} value={i}>{configuration.refs[i].title}</option>
-            );
+            if (this.state.currentRefIndex === i) {
+                refOptions.push(
+                    <div className="NavItem isActive" key={i} onClick={this.refSelected.bind(this, i)}>{configuration.refs[i].title}</div>
+                );
+            } else {
+                refOptions.push(
+                    <div className="NavItem" key={i} onClick={this.refSelected.bind(this, i)}>{configuration.refs[i].title}</div>
+                );
+            }
         };
 
         return (
             <div>
-                <h1>{configuration.refs[this.state.currentRefIndex].title}</h1>
+                <div className="Nav">
+                    <h2>{configuration.title}</h2>
 
-                <select value={this.state.currentRefIndex} onChange={this.childChanged}>
-                  {refOptions}
-                </select>
+                    <div className="NavItems">
+                        {refOptions}
+                    </div>
 
-                <FirebaseTable key={this.state.currentRefIndex} refIndex={this.state.currentRefIndex}/>
+                    <Form type="inline">
+                        <FormField>
+                            <FormInput type="number" value={this.state.rangeStart} onChange={this.handleRangeStartChange}>
+                            </FormInput>
+                        </FormField>
+                        to
+                        <FormField>
+                            <FormInput type="number" value={this.state.rangeEnd} onChange={this.handleRangeEndChange}>
+                            </FormInput>
+                        </FormField>
+                        of&nbsp;{this.state.currentItems.length || '...'}
+                    </Form>
+                </div>
+
+                <FirebaseTable
+                    key={this.state.currentRefIndex}
+                    refIndex={this.state.currentRefIndex}
+                    rangeStart={this.state.rangeStart}
+                    rangeEnd={this.state.rangeEnd}
+                    itemsLoaded={this.itemsLoaded}
+                />
             </div>
         )
     }

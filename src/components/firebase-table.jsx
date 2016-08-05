@@ -30,8 +30,7 @@ export default React.createClass({
             orderByDirection: configuration.refs[this.props.refIndex].orderByDirection,
             openFilterFields: [],
             filtersByKey: {},
-            rangeStart: configuration.refs[this.props.refIndex].rangeStart || 1,
-            rangeEnd: configuration.refs[this.props.refIndex].rangeEnd || 10
+
         };
     },
     componentWillMount: function() {
@@ -90,6 +89,7 @@ export default React.createClass({
         this.sortItems(); // in place
         state.items = this.filterItems(); // not in place
         this.setState(state);
+        this.props.itemsLoaded(this.state.items);
     },
     processSnapshot: function (snapshot) {
         var resolve = configuration.refs[this.props.refIndex].resolve || defaultResolve;
@@ -128,36 +128,6 @@ export default React.createClass({
     },
     componentWillUnmount: function () {
         configuration.refs[this.props.refIndex].ref.off();
-    },
-    handleRangeStartChange: function (event) {
-        var value = event.target.value;
-        if (value < 1) {
-            value = 1;
-        }
-
-        var rangeDiff = this.state.rangeEnd - this.state.rangeStart;
-
-        this.setState({
-            rangeStart: value,
-            rangeEnd: Number(value) + Number(rangeDiff)
-        });
-    },
-    handleRangeEndChange: function (event) {
-        var value = event.target.value;
-        if (value < 1) {
-            value = 1;
-        }
-
-        var rangeStart = this.state.rangeStart;
-
-        if (this.state.rangeStart > this.state.rangeEnd) {
-            rangeStart = this.state.rangeEnd
-        }
-
-        this.setState({
-            rangeStart: rangeStart,
-            rangeEnd: value
-        });
     },
     handleFilterChange: function (key, title, event) {
         const value = event.target.value.replace(title + ': ', '').replace(title + ':', '');
@@ -343,8 +313,8 @@ export default React.createClass({
         // Dynamically create rows based on ref configuration
         var rows = [];
 
-        var rangeStart = this.state.rangeStart;
-        var rangeEnd = this.state.rangeEnd;
+        var rangeStart = this.props.rangeStart;
+        var rangeEnd = this.props.rangeEnd;
         var rangeDiff = rangeEnd - rangeStart;
 
         if (this.state.items.length < rangeStart) {
@@ -368,29 +338,6 @@ export default React.createClass({
 
         return (
             <div>
-                <GridRow>
-                    <GridCol sm="2/3">
-                    </GridCol>
-
-                    <GridCol sm="1/3">
-                        <Card>
-                            <Form type="inline">
-                                <FormField>
-                                    <FormInput type="number" value={this.state.rangeStart} onChange={this.handleRangeStartChange}>
-                                    </FormInput>
-                                </FormField>
-                                to
-                                <FormField>
-                                    <FormInput type="number" value={this.state.rangeEnd} onChange={this.handleRangeEndChange}>
-                                    </FormInput>
-                                </FormField>
-                                of {this.state.items.length || '...'}
-                            </Form>
-                        </Card>
-                    </GridCol>
-                </GridRow>
-
-
                 <Table>
                     <thead>
                         <tr>
