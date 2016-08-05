@@ -30,6 +30,7 @@ You need to add a `firestation.config.js` file in the root of the project. This 
 
     export default {
         auth: myAuthMethod,
+        title: 'Pet Owners Database'
         refs: [
             {
                 ref: myFirebaseRef.child('pets'),
@@ -121,6 +122,7 @@ Firestation works by rendering a table for each `ref` you're interested in, with
 The top level defines how to connect to your firebase:
 
 - `auth` (function) - an authentication method to authenticate with your firebase server. It's up to you to implement that, but is should take a `callback`.
+- `title` (string) - the title of your database. This will render in the top left.
 - `refs` (array) - an array of `ref` configuration that will describe how to render your firebase. [See Refs](#refs) for more.
 
 Example:
@@ -425,6 +427,10 @@ Neat, huh?
 A small caveat with this method for flattening resources is that firestation will not monitor for or render changes in the flattened object, only the main resource. You could use `.on('child_changed')` or similar method to address this, but this is not officially supported or tested and firestation may behave unexpectedly.
 
 __Please note, since these values are calculated and do not actually exist on the firebase resource, they are intrinsically read-only. It is impossible to write to them.__
+
+<a name="favicons"></a>
+## Favicons
+You can add favicons to your project. `index.html` will render favicons rendered by [RealFaviconGenerator](http://realfavicongenerator.net), placed in the `favicons` directory of your project (probably in `dist`).
 
 <a name="running-locally"></a>
 ## Running locally
