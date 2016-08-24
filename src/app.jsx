@@ -23,7 +23,8 @@ export default React.createClass({
             currentRefIndex: 0,
             currentItems: [],
             rangeStart: configuration.refs[0].rangeStart || 1,
-            rangeEnd: configuration.refs[0].rangeEnd || 10
+            rangeEnd: configuration.refs[0].rangeEnd || 10,
+            filteredSize: 0
         };
     },
     refSelected: function (refIndex) {
@@ -38,6 +39,12 @@ export default React.createClass({
     itemsLoaded: function (items) {
         this.setState({
             currentItems: items,
+            filteredSize: items.length
+        });
+    },
+    itemsFiltered: function (items) {
+        this.setState({
+            filteredSize: items.length
         });
     },
     handleRangeStartChange: function (event) {
@@ -104,7 +111,7 @@ export default React.createClass({
                             <FormInput type="number" value={this.state.rangeEnd} onChange={this.handleRangeEndChange}>
                             </FormInput>
                         </FormField>
-                        of&nbsp;{this.state.currentItems.length || '...'}
+                        of&nbsp;{this.state.filteredSize || '...'}
                     </Form>
                 </div>
 
@@ -114,6 +121,7 @@ export default React.createClass({
                     rangeStart={this.state.rangeStart}
                     rangeEnd={this.state.rangeEnd}
                     itemsLoaded={this.itemsLoaded}
+                    itemsFiltered={this.itemsFiltered}
                 />
             </div>
         )

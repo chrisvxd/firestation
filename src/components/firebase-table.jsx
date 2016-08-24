@@ -176,6 +176,8 @@ export default React.createClass({
         this.setState({
             items: items,
         });
+
+        this.props.itemsFiltered(items);
     },
     handleSortClick: function (key) {
         if (key === this.currentOrderBy) {
