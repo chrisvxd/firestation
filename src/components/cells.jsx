@@ -6,6 +6,7 @@ var Button = elemental.Button;
 var Form = elemental.Form;
 var FormInput = elemental.FormInput;
 var Glyph = elemental.Glyph;
+var Checkbox = elemental.Checkbox;
 
 export var TextCell = React.createClass({
     getInitialState: function () {
@@ -167,6 +168,48 @@ export var NumberCell = React.createClass({
                 </span>
             )
         }
+    }
+});
+
+export var BooleanCell = React.createClass({
+    getInitialState: function () {
+        return {
+            value: this.props.value
+        }
+    },
+    handleChange: function (value) {
+        this.setState({
+            value: value
+        });
+        this.props.valueChanged(this.props.childKey, value);
+    },
+    handleChecked: function (event) {
+        this.handleChange(true);
+    },
+    handleUnchecked: function (event) {
+        this.handleChange(false);
+    },
+    render: function () {
+        var optionConfig = ((this.props.extras || {}).options || {});
+
+        if (this.props.clean) {
+            this.state.value = this.props.value;
+        }
+
+        if (this.state.value === true) {
+            return (
+                <span>
+                    <Checkbox label={optionConfig.label || ""} className='CellContent' checked onChange={this.handleUnchecked}  disabled={!this.props.canWrite}/>
+                </span>
+            )
+        } else {
+            return (
+                <span>
+                    <Checkbox label={optionConfig.label || ""} className='CellContent' onChange={this.handleChecked}  disabled={!this.props.canWrite}/>
+                </span>
+            )
+        }
+
     }
 });
 

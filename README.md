@@ -195,6 +195,7 @@ Firestation provides various cells for common use cases:
 - [`TextCell`](#text-cell)
 - [`LongTextCell`](#long-text-cell)
 - [`NumberCell`](#number-cell)
+- [`BooleanCell`](#boolean-cell)
 - [`ImageCell`](#image-cell)
 - [`SelectCell`](#select-cell)
 - [`TimeSinceCell`](#time-since-cell)
@@ -219,6 +220,24 @@ This cell _does_ support the `canWrite` method.
 <a name="number-cell"></a>
 ### Number
 Renders the value as number. Does not require any `cellProps`.
+
+This cell _does_ support the `canWrite` method.
+
+<a name="boolean-cell"></a>
+### BooleanCell
+Renders a boolean value as a checkbox. Takes the following `cellProps`:
+
+- `label` (string, optional) - inline label for the checkbox
+
+Example:
+
+    {
+        key: 'likesChicken',
+        cell: BooleanCell,
+        cellProps: {
+            label: 'Chicken Lover?'
+        }
+    }
 
 This cell _does_ support the `canWrite` method.
 
