@@ -36,28 +36,58 @@ export default React.createClass({
             rangeEnd: configuration.refs[refIndex].rangeEnd || 10
         });
     },
+    calculateRangeLimits: function (max) {
+        var rangeStart = this.state.rangeStart;
+        var rangeEnd = this.state.rangeEnd;
+        var rangeDiff = rangeEnd - rangeStart;
+
+        if (max < rangeStart) {
+            rangeStart = max - rangeDiff;
+            if (rangeStart < 0) {
+                rangeStart = 0;
+            }
+        }
+
+        if (max < rangeEnd) {
+            rangeEnd = max;
+        }
+
+        return {
+            start: rangeStart,
+            end: rangeEnd
+        }
+    },
     itemsLoaded: function (items) {
+        var rangeLimits = this.calculateRangeLimits(items.length);
         this.setState({
             currentItems: items,
-            filteredSize: items.length
+            filteredSize: items.length,
+            rangeStart: rangeLimits.start,
+            rangeEnd: rangeLimits.end
         });
     },
     itemsFiltered: function (items) {
+        var rangeLimits = this.calculateRangeLimits(items.length);
         this.setState({
-            filteredSize: items.length
+            filteredSize: items.length,
+            rangeStart: rangeLimits.start,
+            rangeEnd: rangeLimits.end
         });
     },
     handleRangeStartChange: function (event) {
-        var value = event.target.value;
+        var rangeDiff = this.state.rangeEnd - this.state.rangeStart;
+
+        var value = Number(event.target.value);
+
         if (value < 1) {
             value = 1;
-        }
-
-        var rangeDiff = this.state.rangeEnd - this.state.rangeStart;
+        } else if (value >= (this.state.filteredSize - rangeDiff)) {
+            value = this.state.filteredSize - rangeDiff;
+        };
 
         this.setState({
             rangeStart: value,
-            rangeEnd: Number(value) + Number(rangeDiff)
+            rangeEnd: value + Number(rangeDiff)
         });
     },
     handleRangeEndChange: function (event) {

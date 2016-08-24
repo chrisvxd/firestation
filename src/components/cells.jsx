@@ -116,7 +116,6 @@ export var LongTextCell = React.createClass({
     }
 });
 
-
 export var NumberCell = React.createClass({
     getInitialState: function () {
         return {
