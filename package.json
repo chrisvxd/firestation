@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chrisvxd/qf-dashboard.git"
+    "url": "git+https://github.com/chrisvxd/firestation.git"
   },
   "author": "Chris Villa <chrisvilla@me.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/chrisvxd/qf-dashboard/issues"
+    "url": "https://github.com/chrisvxd/firestation/issues"
   },
-  "homepage": "https://github.com/chrisvxd/qf-dashboard#readme",
+  "homepage": "https://github.com/chrisvxd/firestation#readme",
   "dependencies": {
     "elemental": "^0.5.11",
     "firebase": "^2.4.0",
