@@ -12,7 +12,7 @@
     "url": "git+https://github.com/chrisvxd/qf-dashboard.git"
   },
   "author": "Chris Villa <chrisvilla@me.com>",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/chrisvxd/qf-dashboard/issues"
   },
