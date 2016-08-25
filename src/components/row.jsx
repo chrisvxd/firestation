@@ -73,13 +73,12 @@ export default React.createClass({
         return (
             <tr>
                 <td>
-                    <label>
-                        <input type="checkbox" />
-                    </label>
                 </td>
                 {columns}
                 <td>
                     <Button type="primary" onClick={this.saveClick} disabled={!this.state.changed}>Save</Button>
+                </td>
+                <td>
                 </td>
             </tr>
         );

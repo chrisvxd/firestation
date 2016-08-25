@@ -335,13 +335,15 @@ export default React.createClass({
                 <Table>
                     <thead>
                         <tr>
+                            {/* Spacer */}
                             <th>
-                                <label>
-                                    <input type="checkbox" />
-                                </label>
                             </th>
                             {headers}
+                            {/* Save Button */}
                             <th></th>
+                            {/* Spacer */}
+                            <th>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
