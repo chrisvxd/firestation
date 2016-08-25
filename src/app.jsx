@@ -96,7 +96,7 @@ export default React.createClass({
         return (
             <div>
                 <div className="Nav">
-                    <h2>{configuration.title}</h2>
+                    <span className="Heading">{configuration.title}</span>
 
                     <div className="NavItems">
                         {refOptions}

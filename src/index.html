@@ -14,6 +14,9 @@
     <meta name="theme-color" content="#ffffff">
 
     <style type="text/css">
+        body {
+            font-family: "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+        }
         .SortableHeader {
             position: relative;
             cursor: pointer;
@@ -69,13 +72,21 @@
         .ReadOnlyTextArea {
             background-color: #e1e1e1 !important;
         }
+        .Heading {
+            padding: 10px;
+            color: #ff8a65;
+            line-height: 1.0;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
         .Nav {
             display: flex;
+            background-color: #333;
+            color: white;
             border-bottom: #c1c1c1 1px solid;
-        }
-        .Nav h2 {
-            margin-bottom: 0px;
-            padding: 10px;
         }
         .Nav .Form {
             margin-left: auto;
@@ -95,44 +106,19 @@
             text-align:center;
             display: flex;
             width: 90px;
-            align-items: flex-end;
+            align-items: center;
             justify-content: center;
             padding: 5px;
-            padding-bottom: 10px;
-            border-width: 1px;
-            border-style: solid;
-            -webkit-border-image:
-              -webkit-gradient(linear, 0 80%, 0 0, from(#eee), to(rgba(0, 0, 0, 0))) 1 80%;
-            -webkit-border-image:
-              -webkit-linear-gradient(bottom, #eee, rgba(0, 0, 0, 0)) 1 80%;
-            -moz-border-image:
-              -moz-linear-gradient(bottom, #eee, rgba(0, 0, 0, 0)) 1 80%;
-            -o-border-image:
-              -o-linear-gradient(bottom, #eee, rgba(0, 0, 0, 0)) 1 80%;
-            border-image:
-              linear-gradient(to top, #eee, rgba(0, 0, 0, 0)) 1 80%;
-            border-left: 0px;
-        }
-        .Nav .NavItem:first-of-type {
-            border-width: 1px;
-            border-style: solid;
-            -webkit-border-image:
-              -webkit-gradient(linear, 0 80%, 0 0, from(#eee), to(rgba(0, 0, 0, 0))) 1 80%;
-            -webkit-border-image:
-              -webkit-linear-gradient(bottom, #eee, rgba(0, 0, 0, 0)) 1 80%;
-            -moz-border-image:
-              -moz-linear-gradient(bottom, #eee, rgba(0, 0, 0, 0)) 1 80%;
-            -o-border-image:
-              -o-linear-gradient(bottom, #eee, rgba(0, 0, 0, 0)) 1 80%;
-            border-image:
-              linear-gradient(to top, #eee, rgba(0, 0, 0, 0)) 1 80%;
         }
         .Nav .NavItem:hover {
             background: #0297AD;
-            color: white;
+            border-top: 0px !important;
+            border-bottom: 0px !important;
         }
         .Nav .NavItem.isActive {
             font-weight: 600;
+            border-top: solid 5px #333;
+            border-bottom: solid 5px #ff8a65;
         }
     </style>
   </head>
