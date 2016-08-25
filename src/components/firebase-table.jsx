@@ -29,8 +29,7 @@ export default React.createClass({
             orderBy: configuration.refs[this.props.refIndex].orderBy,
             orderByDirection: configuration.refs[this.props.refIndex].orderByDirection,
             openFilterFields: [],
-            filtersByKey: {},
-
+            filtersByKey: {}
         };
     },
     componentWillMount: function() {
@@ -319,18 +318,11 @@ export default React.createClass({
         var rangeEnd = this.props.rangeEnd;
         var rangeDiff = rangeEnd - rangeStart;
 
-        if (this.state.items.length < rangeStart) {
-            rangeStart = this.state.items.length - rangeDiff;
-            if (rangeStart < 0) {
-                rangeStart = 0;
-            }
-        }
-
         if (this.state.items.length < rangeEnd) {
             rangeEnd = this.state.items.length;
         }
 
-        if (this.state.items.length > 0) {
+        if (this.state.items.length >= rangeStart && rangeEnd >= rangeStart) {
             for (var i = rangeStart - 1; i < rangeEnd; i++) {
                 var key = this.state.items[i].key;
                 var val = this.state.items[i].val;

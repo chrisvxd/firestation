@@ -36,42 +36,15 @@ export default React.createClass({
             rangeEnd: configuration.refs[refIndex].rangeEnd || 10
         });
     },
-    calculateRangeLimits: function (max) {
-        var rangeStart = this.state.rangeStart;
-        var rangeEnd = this.state.rangeEnd;
-        var rangeDiff = rangeEnd - rangeStart;
-
-        if (max < rangeStart) {
-            rangeStart = max - rangeDiff;
-            if (rangeStart < 0) {
-                rangeStart = 0;
-            }
-        }
-
-        if (max < rangeEnd) {
-            rangeEnd = max;
-        }
-
-        return {
-            start: rangeStart,
-            end: rangeEnd
-        }
-    },
     itemsLoaded: function (items) {
-        var rangeLimits = this.calculateRangeLimits(items.length);
         this.setState({
             currentItems: items,
-            filteredSize: items.length,
-            rangeStart: rangeLimits.start,
-            rangeEnd: rangeLimits.end
+            filteredSize: items.length
         });
     },
     itemsFiltered: function (items) {
-        var rangeLimits = this.calculateRangeLimits(items.length);
         this.setState({
-            filteredSize: items.length,
-            rangeStart: rangeLimits.start,
-            rangeEnd: rangeLimits.end
+            filteredSize: items.length
         });
     },
     handleRangeStartChange: function (event) {
@@ -81,8 +54,6 @@ export default React.createClass({
 
         if (value < 1) {
             value = 1;
-        } else if (value >= (this.state.filteredSize - rangeDiff)) {
-            value = this.state.filteredSize - rangeDiff;
         };
 
         this.setState({
@@ -91,7 +62,7 @@ export default React.createClass({
         });
     },
     handleRangeEndChange: function (event) {
-        var value = event.target.value;
+        var value = Number(event.target.value);
         if (value < 1) {
             value = 1;
         }
