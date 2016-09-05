@@ -13,6 +13,7 @@ var Glyph = elemental.Glyph;
 var GridRow = elemental.Row;
 var GridCol = elemental.Col;
 var Card = elemental.Card;
+var Spinner = elemental.Spinner;
 
 import configuration from '../../firestation.config.js';
 import Row from './row.jsx';
@@ -29,7 +30,8 @@ export default React.createClass({
             orderBy: configuration.refs[this.props.refIndex].orderBy,
             orderByDirection: configuration.refs[this.props.refIndex].orderByDirection,
             openFilterFields: [],
-            filtersByKey: {}
+            filtersByKey: {},
+            loaded: false
         };
     },
     componentWillMount: function() {
@@ -77,7 +79,7 @@ export default React.createClass({
                     i += 1;
 
                     if (i === snapshot.numChildren()) {
-                        this.prepareAndSetState({items: this.items});
+                        this.prepareAndSetState({items: this.items, loaded: true});
                         monitorRef.bind(this)();
                     };
                 }.bind(this));
@@ -310,6 +312,15 @@ export default React.createClass({
         return headers
     },
     render: function () {
+
+        if (!this.state.loaded) {
+            return (
+                <div style={{width: "100%", height: "800px", display: "flex", justifyContent: "center", alignItems: "center"}}>
+                    <Spinner size="lg" />
+                </div>
+            )
+        }
+
         var headers = this.renderHeaders();
 
         // Dynamically create rows based on ref configuration
