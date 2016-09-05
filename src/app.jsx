@@ -182,22 +182,6 @@ export default React.createClass({
     setOpenFilterFields: function (openFilterFields) {
         this.layouts[this.state.currentRefIndex].openFilterFields = openFilterFields
     },
-    itemsLoaded: function (items) {
-        this.setState({
-            currentItems: items,
-            filteredSize: items.length
-        });
-    },
-    itemsFiltered: function (items) {
-        this.setState({
-            filteredSize: items.length
-        });
-    },
-    setCurrentHandlers: function (handlers) {
-        this.setState({
-            currentHandlers: handlers
-        });
-    },
     registerFilterAndRun: function (key, value) {
         if (value) {
             this.layouts[this.state.currentRefIndex].filters[key] = function(val){
@@ -289,8 +273,6 @@ export default React.createClass({
                 rangeStart={this.state.rangeStart}
                 rangeEnd={this.state.rangeEnd}
                 items={this.state.currentItems}
-                itemsLoaded={this.itemsLoaded}
-                itemsFiltered={this.itemsFiltered}
                 setCurrentOrderBy={this.setCurrentOrderBy}
                 setOpenFilterFields={this.setOpenFilterFields}
                 setFiltersByKey={this.setFiltersByKey}
