@@ -53,8 +53,8 @@ export default React.createClass({
 
         var monitorRef = function () {
             this.ref.on('child_added', this.processSnapshot);
-            this.ref.on('child_changed', this.processSnapshot);
-            this.ref.on('child_removed', this.removeSnapshot);
+            this.batchRef.on('child_changed', this.processSnapshot);
+            this.batchRef.on('child_removed', this.removeSnapshot);
         };
 
         // Run value once, then watch for children added
