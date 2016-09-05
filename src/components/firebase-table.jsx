@@ -47,6 +47,7 @@ export default React.createClass({
         };
 
         this.ref = configuration.refs[this.props.refIndex].ref;
+        this.batchRef = configuration.refs[this.props.refIndex].batchRef || this.ref;
 
         var monitorRef = function () {
             this.ref.on('child_added', this.processSnapshot);
@@ -55,7 +56,7 @@ export default React.createClass({
         };
 
         // Run value once, then watch for children added
-        this.ref.once('value', function (snapshot) {
+        this.batchRef.once('value', function (snapshot) {
             var i = 0;
 
             console.log('Queried firebase!');
