@@ -1,3 +1,5 @@
+require('./cells.css');
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 var moment = require('moment');
@@ -7,6 +9,8 @@ var Form = elemental.Form;
 var FormInput = elemental.FormInput;
 var Glyph = elemental.Glyph;
 var Checkbox = elemental.Checkbox;
+var Datetime = require('react-datetime');
+
 
 export var TextCell = React.createClass({
     getInitialState: function () {
@@ -258,13 +262,111 @@ export var SelectCell = React.createClass({
 });
 
 export var DateCell = React.createClass({
+    // The following three methods are lifted from Datetime picker module https://github.com/YouCanBookMe/react-datetime/
+    localMoment: function( date, format ){
+        const extras = this.props.extras || {};
+
+        var strictParsing = extras.strictParsing;
+
+        if (strictParsing === undefined) {
+            strictParsing = false
+        }
+
+        var m = moment( date, format, strictParsing );
+        if ( extras.locale )
+            m.locale( extras.locale );
+        return m;
+    },
+    getUpdateOn: function(formats){
+        if ( formats.date.match(/[lLD]/) ){
+            return 'days';
+        }
+        else if ( formats.date.indexOf('M') !== -1 ){
+            return 'months';
+        }
+        else if ( formats.date.indexOf('Y') !== -1 ){
+            return 'years';
+        }
+
+        return 'days';
+    },
+    getFormats: function(){
+        const extras = this.props.extras || {};
+
+        var formats = {
+                date: extras.dateFormat || '',
+                time: extras.timeFormat || ''
+            },
+            locale = this.localMoment( this.props.value ).localeData()
+        ;
+
+        if ( formats.date === true ){
+            formats.date = locale.longDateFormat('L');
+        } else if ( this.getUpdateOn(formats) !== 'days' ){
+            formats.time = '';
+        }
+
+        if ( formats.time === true ){
+            formats.time = locale.longDateFormat('LT');
+        }
+
+        formats.datetime = formats.date && formats.time ?
+            formats.date + ' ' + formats.time :
+            formats.date || formats.time
+        ;
+
+        return formats;
+    },
     componentWillMount: function () {
-        this.moment = moment(this.props.value).format("DD/MM/YY, h:mm:ss a");
+        this.moment = moment(this.props.value).format(this.getFormats().datetime || "DD/MM/YY, h:mm:ss a");
+    },
+    getInitialState: function() {
+        return {
+            editing: false,
+            value: this.props.value
+        }
+    },
+    handleEditToggle: function (event) {
+        event.preventDefault();
+        this.setState({
+            editing: !this.state.editing
+        });
+    },
+    handleChange: function (moment) {
+        var value;
+        // Ensure we stick with the format, whether ISO or milliseconds
+        if (typeof this.props.value === "number") {
+            value = moment.toDate().getTime();
+        } else {
+            value = moment.toDate().toISOString();
+        }
+
+        this.props.valueChanged(this.props.childKey, value);
+
+        this.setState({value: value});
     },
     render: function () {
-        return (
-            <div>{this.moment}</div>
-        );
+        var editGlyph;
+
+        if (this.props.canWrite) {
+            editGlyph = (<span onClick={this.handleEditToggle} className='CellEditIcon'>
+                <Glyph icon='pencil'></Glyph>
+            </span>)
+        };
+
+        if (!this.state.editing) {
+            return <div>
+                {this.moment} {editGlyph}
+            </div>
+        } else {
+            return <div><Datetime
+                value={new Date(this.state.value)}
+                dateFormat={this.getFormats().date || "DD/MM/YY"}
+                timeFormat={this.getFormats().time || "h:mm:ss a"}
+                onChange={this.handleChange}/>
+                {editGlyph}
+            </div>
+        }
     }
 });
 

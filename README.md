@@ -290,9 +290,23 @@ This cell _does_ support the `canWrite` method.
 
 <a name="date-cell"></a>
 ### DateCell
-Renders a date in seconds or ISO format to a human-readable date.
+Renders a date in seconds or ISO format to a human-readable date. Write mode uses [a datepicker](https://github.com/YouCanBookMe/react-datetime) to make date selection easy. Formats for your locale and handles daylight changes.
 
-This cell __does not__ support the `canWrite` method.
+- `dateFormat` (string) - date format Defaults to UK format, i.e. `DD/MM/YY`. Follows the [moment.js format](http://momentjs.com/docs/#/displaying/format/)
+- `timeFormat` (string) - time format. Also follows the [moment.js format](http://momentjs.com/docs/#/displaying/format/)
+
+Example:
+
+    {
+        key: 'startAt',
+        cell: Start,
+        cellProps: {
+            dateFormat: 'MM/DD/YY'
+        },
+        canWrite: true
+    }
+
+This cell _does_ support the `canWrite` method.
 
 <a name="time-since-cell"></a>
 ### TimeSinceCell
