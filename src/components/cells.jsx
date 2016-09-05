@@ -317,8 +317,8 @@ export var DateCell = React.createClass({
 
         return formats;
     },
-    componentWillMount: function () {
-        this.moment = moment(this.props.value).format(this.getFormats().datetime || "DD/MM/YY, h:mm:ss a");
+    getMoment: function () {
+        return moment(this.state.value).format(this.getFormats().datetime || "DD/MM/YY, h:mm:ss a");
     },
     getInitialState: function() {
         return {
@@ -356,7 +356,7 @@ export var DateCell = React.createClass({
 
         if (!this.state.editing) {
             return <div>
-                {this.moment} {editGlyph}
+                {this.getMoment()} {editGlyph}
             </div>
         } else {
             return <div><Datetime
