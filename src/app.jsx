@@ -52,7 +52,11 @@ export default React.createClass({
 
         if (this.items[refIndex] === undefined) {
             this.setState({loaded: false});
-            this.layouts[refIndex] = {filters: {}};
+            this.layouts[refIndex] = {
+                filters: {},
+                orderBy: configuration.refs[refIndex].orderBy,
+                orderByDirection: configuration.refs[refIndex].orderByDirection,
+            };
             this.makeQuery(refIndex);
         } else {
             this.layouts[refIndex].childAdded = false;

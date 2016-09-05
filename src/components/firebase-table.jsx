@@ -23,8 +23,8 @@ export default React.createClass({
     getInitialState: function () {
         return {
             items: [],
-            orderBy: (this.props.orderBy || configuration.refs[this.props.refIndex].orderBy),
-            orderByDirection: (this.props.orderByDirection || configuration.refs[this.props.refIndex].orderByDirection),
+            orderBy: this.props.orderBy,
+            orderByDirection: this.props.orderByDirection,
             openFilterFields: this.props.openFilterFields || [],
             filtersByKey: this.props.filtersByKey || {},
             loaded: true
