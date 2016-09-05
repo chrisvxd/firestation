@@ -27,8 +27,6 @@ export default React.createClass({
     componentWillMount: function () {
         this.items = {};
         this.layouts = {};
-        this.handlers = {};
-        this.refs = {};
         this.refSelected(0);
     },
     getInitialState: function () {
