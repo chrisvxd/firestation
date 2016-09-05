@@ -57,6 +57,9 @@ export default React.createClass({
             this.layouts[refIndex] = {filters: {}};
             this.makeQuery(refIndex);
         } else {
+            this.layouts[refIndex].childAdded = false;
+            this.layouts[refIndex].childChanged = false;
+            this.layouts[refIndex].childRemoved = false;
             this.prepareAndSetState(refIndex);
         }
     },
@@ -71,9 +74,27 @@ export default React.createClass({
         var _this = this;
 
         var monitorRef = function () {
-            ref.on('child_added', function (snapshot) {this.processSnapshot(refIndex, snapshot)}.bind(this)),
-            batchRef.on('child_changed', function (snapshot) {this.processSnapshot(refIndex, snapshot)}.bind(this)),
-            batchRef.on('child_removed', function (snapshot) {this.removeSnapshot(refIndex, snapshot)}.bind(this))
+            ref.on('child_added', function (snapshot) {
+                if (this.state.currentRefIndex !== refIndex) {
+                    this.layouts[refIndex].childAdded = true;
+                }
+                this.setState({});
+                this.processSnapshot(refIndex, snapshot)}.bind(this)
+            ),
+            batchRef.on('child_changed', function (snapshot) {
+                if (this.state.currentRefIndex !== refIndex) {
+                    this.layouts[refIndex].childChanged = true;
+                }
+                this.setState({});
+                this.processSnapshot(refIndex, snapshot)}.bind(this)
+            ),
+            batchRef.on('child_removed', function (snapshot) {
+                if (this.state.currentRefIndex !== refIndex) {
+                    this.layouts[refIndex].childRemoved = true;
+                }
+                this.setState({});
+                this.removeSnapshot(refIndex, snapshot)}.bind(this)
+            )
         };
 
         // Run value once, then watch for children added
@@ -254,8 +275,27 @@ export default React.createClass({
                     <div className="NavItem isActive" key={i} onClick={this.refSelected.bind(this, i)}>{configuration.refs[i].title}</div>
                 );
             } else {
+
+                var indicators = [];
+                const layout = this.layouts[i] || {}
+
+                if (layout.childAdded) {
+                    indicators.push(<div className="Indicator ChildAdded"/>)
+                }
+
+                if (layout.childChanged) {
+                    indicators.push(<div className="Indicator ChildChanged"/>)
+                }
+
+                if (layout.childRemoved) {
+                    indicators.push(<div className="Indicator ChildRemoved"/>)
+                }
+
                 refOptions.push(
-                    <div className="NavItem" key={i} onClick={this.refSelected.bind(this, i)}>{configuration.refs[i].title}</div>
+                    <div className="NavItem" key={i} onClick={this.refSelected.bind(this, i)}>
+                        <div className="Indicators">{indicators}</div>
+                        {configuration.refs[i].title}
+                    </div>
                 );
             }
         };
