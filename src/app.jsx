@@ -14,6 +14,7 @@ var Form = elemental.Form;
 var FormField = elemental.FormField;
 var FormInput = elemental.FormInput;
 var Spinner = elemental.Spinner;
+var Glyph = elemental.Glyph;
 
 import FirebaseTable from 'components/firebase-table.jsx';
 
@@ -279,6 +280,7 @@ export default React.createClass({
             } else {
 
                 var indicators = [];
+                var liveIndicator = null;
                 const layout = this.layouts[i] || {}
 
                 if (layout.childAdded) {
@@ -293,10 +295,15 @@ export default React.createClass({
                     indicators.push(<div className="Indicator ChildRemoved"/>)
                 }
 
+                if (this.items[i] !== undefined) {
+                    liveIndicator = <div className="Indicator Live"/>
+                }
+
                 refOptions.push(
                     <div className="NavItem" key={i} onClick={this.refSelected.bind(this, i)}>
                         <div className="Indicators">{indicators}</div>
                         {configuration.refs[i].title}
+                        <div className="Indicators">{liveIndicator}</div>
                     </div>
                 );
             }
