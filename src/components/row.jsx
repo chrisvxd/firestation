@@ -34,6 +34,8 @@ export default React.createClass({
             childRef.set(this.deltaVal[key]);
         };
 
+        this.deltaVal = {};
+
         this.setState({
             changed: false
         });
