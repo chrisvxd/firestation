@@ -23,7 +23,10 @@ export default React.createClass({
 
         var key = this.props.itemKey;
 
-        var ref = configuration.refs[this.props.refIndex].ref.ref().child(key);
+        const config = configuration.refs[this.props.refIndex];
+        var rootRef = (config.batchRef || config.ref || config.getRef()).ref();
+
+        var ref = rootRef.child(key);
 
         // Update each modified key individually, since need to account for nested keys
         for (var key in this.deltaVal) {
