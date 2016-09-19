@@ -78,24 +78,24 @@ export default React.createClass({
 
         var monitorRef = function () {
             ref.on('child_added', function (snapshot) {
-                if (this.state.currentRefIndex !== refIndex) {
+                if (this.state.currentRefIndex !== refIndex && this.layouts[refIndex].childAdded !== true) {
                     this.layouts[refIndex].childAdded = true;
+                    this.setState({});
                 }
-                this.setState({});
                 this.processSnapshot(refIndex, snapshot)}.bind(this)
             ),
             batchRef.on('child_changed', function (snapshot) {
-                if (this.state.currentRefIndex !== refIndex) {
+                if (this.state.currentRefIndex !== refIndex && this.layouts[refIndex].childChanged !== true) {
                     this.layouts[refIndex].childChanged = true;
+                    this.setState({});
                 }
-                this.setState({});
                 this.processSnapshot(refIndex, snapshot)}.bind(this)
             ),
             batchRef.on('child_removed', function (snapshot) {
-                if (this.state.currentRefIndex !== refIndex) {
+                if (this.state.currentRefIndex !== refIndex && this.layouts[refIndex].childRemoved !== true) {
                     this.layouts[refIndex].childRemoved = true;
+                    this.setState({});
                 }
-                this.setState({});
                 this.removeSnapshot(refIndex, snapshot)}.bind(this)
             )
         };
