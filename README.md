@@ -202,6 +202,7 @@ Firestation provides various cells for common use cases:
 - [`DateCell`](#date-cell)
 - [`CurrencyCell`](#currency-cell)
 - [`ButtonCell`](#button-cell)
+- [`DropdownCell`](#dropdown-cell)
 
 We're adding to this (see [Future Cells](#future-cells)), but [you can write custom react cells](#custom-cells) if you need anything fancy.
 
@@ -357,6 +358,37 @@ Simple example:
                   disabled: true
                 });
             }
+        }
+    }
+
+<a name="dropdown-cell"></a>
+### DropdownCell
+Renders a dropdown that can trigger actions. Takes the following `cellProps`:
+
+- `title` (string) - title of the button
+- `disabled` (string) - whether the cell is disabled. Defaults to `false`
+- `items` (function) - an array of items to render, made up of `actions`, `dividers` and `headers`. See example below for usage.
+
+Simple example:
+
+    {
+        key: '',
+        cell: DropdownCell,
+        cellProps: {
+            title: 'Drop it like it's hot',
+            items: [
+                {
+                    label: 'Action',
+                    action: function (rowKey, rowValue) {
+                        console.log('Bam!', rowKey, rowValue);
+                    }
+                },
+                { label: 'Another action' },
+                { label: 'Something else here' },
+                { type: 'divider' },
+                { type: 'header', label: 'Dropdown header' },
+                { label: 'Separated link' }
+            ]
         }
     }
 

@@ -10,7 +10,7 @@ var FormInput = elemental.FormInput;
 var Glyph = elemental.Glyph;
 var Checkbox = elemental.Checkbox;
 var Datetime = require('react-datetime');
-
+var Dropdown = elemental.Dropdown;
 
 export var TextCell = React.createClass({
     getInitialState: function () {
@@ -420,5 +420,36 @@ export var ButtonCell = React.createClass({
     },
     render: function () {
         return <Button onClick={this.action} disabled={this.state.disabled} type={this.state.type}>{this.state.title}</Button>
+    }
+});
+
+export var DropdownCell = React.createClass({
+    getInitialState: function () {
+        return {
+            title: this.props.extras.title || '',
+            items: this.props.extras.items || []
+        }
+    },
+    onSelect: function (index) {
+        var action = this.state.items[index].action;
+
+        if (action !== undefined) {
+            var $this = this;
+            this.state.items[index].action(this.props.rowKey, this.props.rowValue);
+        }
+    },
+    render: function () {
+        // Map item values to index so we can use inline methods when defining
+        for (var i = 0; i < this.state.items.length; i++) {
+            this.state.items[i].value = i
+        }
+
+        return (
+            <Dropdown
+                items={this.state.items}
+                onSelect={this.onSelect}
+                buttonLabel={this.state.title}
+            />
+        );
     }
 });
