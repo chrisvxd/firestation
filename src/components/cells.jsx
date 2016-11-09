@@ -341,7 +341,7 @@ export var DateCell = React.createClass({
         var type;
 
         if (moment === "") {
-            this.props.valueChanged(this.props.childKey, "");
+            this.props.valueChanged(this.props.childKey, null);
             this.setState({value: ""});
             return
         }
