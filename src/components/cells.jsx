@@ -340,6 +340,12 @@ export var DateCell = React.createClass({
         var value;
         var type;
 
+        if (moment === "") {
+            this.props.valueChanged(this.props.childKey, "");
+            this.setState({value: ""});
+            return
+        }
+
         // Ensure we stick with the format, whether ISO or milliseconds
         if (this.props.extras.saveFormat !== undefined) {
             type = this.props.extras.saveFormat;
