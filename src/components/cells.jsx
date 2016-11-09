@@ -318,7 +318,11 @@ export var DateCell = React.createClass({
         return formats;
     },
     getMoment: function () {
-        return moment(this.state.value).format(this.getFormats().datetime || "DD/MM/YY, h:mm:ss a");
+        if (this.state.value !== undefined && this.state.value !== "") {
+            return moment(this.state.value).format(this.getFormats().datetime || "DD/MM/YY, h:mm:ss a");
+        } else {
+            return ""
+        }
     },
     getInitialState: function() {
         return {
