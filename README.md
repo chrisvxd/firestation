@@ -293,8 +293,9 @@ This cell _does_ support the `canWrite` method.
 ### DateCell
 Renders a date in seconds or ISO format to a human-readable date. Write mode uses [a datepicker](https://github.com/YouCanBookMe/react-datetime) to make date selection easy. Formats for your locale and handles daylight changes.
 
-- `dateFormat` (string) - date format Defaults to UK format, i.e. `DD/MM/YY`. Follows the [moment.js format](http://momentjs.com/docs/#/displaying/format/)
+- `dateFormat` (string) - date format. Defaults to UK format, i.e. `DD/MM/YY`. Follows the [moment.js format](http://momentjs.com/docs/#/displaying/format/)
 - `timeFormat` (string) - time format. Also follows the [moment.js format](http://momentjs.com/docs/#/displaying/format/)
+- `saveFormat` (string) - the format to save to firebase. Either `numeric` (in ms) or `iso`. Defaults to `iso`.
 
 Example:
 
@@ -302,7 +303,8 @@ Example:
         key: 'startAt',
         cell: Start,
         cellProps: {
-            dateFormat: 'MM/DD/YY'
+            dateFormat: 'MM/DD/YY',
+            saveFormat: 'numeric'
         },
         canWrite: true
     }
